@@ -1,8 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-F0DHW1YSYB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-<meta charset="UTF-8">
+  gtag('config', 'G-F0DHW1YSYB');
+</script> <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Ultimate Username Generator</title>
@@ -361,7 +367,7 @@ Save Favorite
 <div class="history">
 
 <h2 style="margin-bottom:15px;">
-Generation History
+Generation History & Favorites
 </h2>
 
 <div class="history-box" id="historyBox">
@@ -536,10 +542,21 @@ function copyUsername(){
 let text =
 document.getElementById("username").innerText;
 
+if(text === "Your username will appear here") return;
+
 navigator.clipboard.writeText(text);
 
 alert("Username copied!");
 
+}
+
+// FIXED: Created missing addHistory function to show current generation flow
+function addHistory(username) {
+    let box = document.getElementById("historyBox");
+    let div = document.createElement("div");
+    div.className = "history-item";
+    div.innerText = "⚡ " + username;
+    box.prepend(div);
 }
 
 function saveFavorite(){
@@ -554,49 +571,36 @@ if(username === "Your username will appear here"){
 let favoritesList =
 JSON.parse(localStorage.getItem("favorites")) || [];
 
-favoritesList.push(username);
-
-localStorage.setItem(
-"favorites",
-JSON.stringify(favoritesList)
-);
-
-favorites++;
-
-document.getElementById("favoriteCount")
-.innerText = favorites;
-
-displayFavorites();
-
-alert("Saved to favorites!");
+// Prevent adding duplicates
+if(!favoritesList.includes(username)){
+    favoritesList.push(username);
+    localStorage.setItem("favorites", JSON.stringify(favoritesList));
+    favorites++;
+    document.getElementById("favoriteCount").innerText = favorites;
+    
+    // Put a visual star indicator in the current history box
+    let box = document.getElementById("historyBox");
+    let div = document.createElement("div");
+    div.className = "history-item";
+    div.style.color = "#00ff99";
+    div.innerText = "⭐ [Saved Favorite] " + username;
+    box.prepend(div);
+    
+    alert("Saved to favorites!");
+} else {
+    alert("Already in favorites!");
+}
 
 }
 
 function displayFavorites(){
-
 let favoritesList =
 JSON.parse(localStorage.getItem("favorites")) || [];
-
-let box =
-document.getElementById("historyBox");
-
-box.innerHTML = "";
-
-favoritesList.forEach(function(item){
-
-    let div =
-    document.createElement("div");
-
-    div.className = "history-item";
-
-    div.innerText = "⭐ " + item;
-
-    box.prepend(div);
-
-});
-
+favorites = favoritesList.length;
+document.getElementById("favoriteCount").innerText = favorites;
 }
 
+// Load initial favorited counter values on page startup
 displayFavorites();
 
 </script>
