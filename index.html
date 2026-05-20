@@ -72,12 +72,66 @@ header p{
     padding:40px 20px;
 }
 
+/* Privacy Acceptance Container Style */
+.privacy-gate-box {
+    background: #161e1a;
+    padding: 25px;
+    border-radius: 20px;
+    border: 2px dashed #00ff99;
+    margin-bottom: 30px;
+    text-align: center;
+    box-shadow: 0 0 20px rgba(0, 255, 153, 0.1);
+}
+
+.privacy-gate-box label {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    text-transform: none;
+    font-size: 16px;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.privacy-gate-box input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    accent-color: #00ff99;
+    cursor: pointer;
+}
+
+.policy-link-btn {
+    background: none;
+    border: none;
+    color: #00ff99;
+    text-decoration: underline;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0;
+    display: inline;
+    width: auto !important;
+}
+
+.policy-link-btn:hover {
+    color: #12ff9e;
+}
+
+/* Blur/Lock styling for generator fields until accepted */
+.generator-disabled {
+    opacity: 0.25;
+    pointer-events: none;
+    user-select: none;
+    transition: all 0.4s ease;
+}
+
 .generator-box{
     background:#121614;
     padding:35px;
     border-radius:24px;
     border: 1px solid #1f2924;
     box-shadow:0 15px 35px rgba(0,0,0,0.7);
+    transition: all 0.4s ease;
 }
 
 .section{
@@ -156,13 +210,20 @@ button.generate-btn {
     box-shadow: 0 4px 15px rgba(0, 255, 153, 0.2);
 }
 
-button.generate-btn:hover{
+button.generate-btn:disabled {
+    background: #1f2924 !important;
+    color: #4a5751 !important;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+button.generate-btn:hover:not(:disabled){
     transform:translateY(-2px);
     box-shadow: 0 6px 25px rgba(0, 255, 153, 0.4);
     background: #12ff9e;
 }
 
-button.generate-btn:active{
+button.generate-btn:active:not(:disabled){
     transform:translateY(0);
 }
 
@@ -297,6 +358,79 @@ button.generate-btn:active{
     color: #c4cbc7;
 }
 
+/* Privacy Modal Overlay Windows Setup */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(4, 6, 5, 0.85);
+    backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-content {
+    background: #121614;
+    border: 1px solid #23322b;
+    border-top: 4px solid #00ff99;
+    width: 90%;
+    max-width: 600px;
+    max-height: 80vh;
+    border-radius: 20px;
+    padding: 30px;
+    overflow-y: auto;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+}
+
+.modal-content h3 {
+    color: #00ff99;
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.modal-content p, .modal-content ul {
+    font-size: 14px;
+    color: #c4cbc7;
+    margin-bottom: 15px;
+}
+
+.modal-content ul {
+    padding-left: 20px;
+}
+
+.modal-content li {
+    margin-bottom: 6px;
+}
+
+.modal-close-btn {
+    background: #00ff99;
+    color: #050706;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 15px;
+    font-size: 16px;
+}
+
+.modal-close-btn:hover {
+    background: #12ff9e;
+}
+
 footer{
     margin-top:60px;
     padding:40px;
@@ -326,7 +460,16 @@ footer{
 
 <div class="main">
 
-    <div class="generator-box">
+    <!-- Privacy Checkpoint Gate -->
+    <div class="privacy-gate-box">
+        <label>
+            <input type="checkbox" id="privacyAgreement" onchange="toggleGeneratorAccess()">
+            <span>I accept the global <button class="policy-link-btn" onclick="openPolicyModal(event)">Privacy Policy & Terms</button> to use the generation engine.</span>
+        </label>
+    </div>
+
+    <!-- Added generator-disabled class initially -->
+    <div class="generator-box generator-disabled" id="generatorInterface">
         <div class="section">
             <label>Username Style</label>
             <select id="style">
@@ -363,7 +506,8 @@ footer{
             </div>
         </div>
 
-        <button class="generate-btn" onclick="generateUsername()">
+        <!-- Button is disabled by default until privacy checked -->
+        <button class="generate-btn" id="generateBtn" onclick="generateUsername()" disabled>
             Generate Username
         </button>
 
@@ -388,7 +532,7 @@ footer{
             <p>Favorites Saved</p>
         </div>
         <div class="card">
-            <h2>100%</h2>
+            <h2 id="100%">100%</h2>
             <p>Free Tool</p>
         </div>
     </div>
@@ -409,6 +553,31 @@ footer{
         </ul>
     </div>
 
+</div>
+
+<!-- Privacy Policy Pop-up Modal Container Structure -->
+<div class="modal-overlay" id="policyModal">
+    <div class="modal-content">
+        <h3>Privacy Policy & Terms</h3>
+        <p>Welcome to Ultimate Username Generator. Your privacy is paramount to us. Please read through our terms of configuration below:</p>
+        
+        <h4>1. Data Processing</h4>
+        <p>This web tool does not store or process your personal information, custom keywords, or configurations on an external database server. The local setup runs directly inside your web engine.</p>
+        
+        <h4>2. Web Storage Usage</h4>
+        <p>We use local browser storage (LocalStorage) explicitly to maintain your preferred metrics, including your unique curated favorites list, directly inside your local terminal application footprint.</p>
+        
+        <h4>3. Analytics Instrumentation</h4>
+        <p>We leverage Google Analytics framework scripts to securely evaluate aggregate macro interactions to clean up formatting issues and maximize core UI operational uptime metrics.</p>
+        
+        <ul>
+            <li>Zero server tracking parameters.</li>
+            <li>Data options persist locally in browser cookies and storage caches.</li>
+            <li>Completely open sandbox functionality framework configuration options.</li>
+        </ul>
+
+        <button class="modal-close-btn" onclick="closePolicyModal()">Close & Return</button>
+    </div>
 </div>
 
 <footer>
@@ -449,6 +618,31 @@ const styles = {
 };
 
 const symbols = ["X", "_", "-", "99", "YT", "OP", "vXv", "iZ", "⚡", "ツ"];
+
+// Access Controller Engine Logic
+function toggleGeneratorAccess() {
+    const isChecked = document.getElementById("privacyAgreement").checked;
+    const interfaceBox = document.getElementById("generatorInterface");
+    const generateButton = document.getElementById("generateBtn");
+
+    if (isChecked) {
+        interfaceBox.classList.remove("generator-disabled");
+        generateButton.removeAttribute("disabled");
+    } else {
+        interfaceBox.classList.add("generator-disabled");
+        generateButton.setAttribute("disabled", "true");
+    }
+}
+
+// Modal Toggle Handlers
+function openPolicyModal(event) {
+    event.preventDefault(); // Stop outer form checkbox bubbling triggers
+    document.getElementById("policyModal").classList.add("active");
+}
+
+function closePolicyModal() {
+    document.getElementById("policyModal").classList.remove("active");
+}
 
 function generateUsername(){
     let style = document.getElementById("style").value;
