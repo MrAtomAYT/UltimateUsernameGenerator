@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-F0DHW1YSYB"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-R9HEPT4WNY"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'G-F0DHW1YSYB');
-</script> <meta charset="UTF-8">
+  gtag('config', 'G-R9HEPT4WNY');
+</script>
+
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Ultimate Username Generator</title>
@@ -34,41 +36,48 @@ href="https://cdn-icons-png.flaticon.com/512/149/149071.png">
 }
 
 body{
-    font-family:Arial, sans-serif;
-    background:linear-gradient(135deg,#0f0f0f,#181818,#101820);
-    color:white;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background: radial-gradient(circle at center, #141e1b 0%, #0f1110 60%, #070808 100%);
+    color:#e0e0e0;
     min-height:100vh;
+    line-height: 1.6;
 }
 
 header{
-    padding:25px;
+    padding:40px 20px;
     text-align:center;
-    background:#0b0b0b;
-    border-bottom:2px solid #00ff99;
+    background:#080a09;
+    border-bottom:3px solid #00ff99;
+    box-shadow: 0 4px 20px rgba(0, 255, 153, 0.1);
 }
 
 header h1{
-    font-size:42px;
+    font-size:46px;
+    font-weight: 800;
     color:#00ff99;
+    letter-spacing: -1px;
+    text-shadow: 0 0 10px rgba(0, 255, 153, 0.3);
 }
 
 header p{
-    margin-top:10px;
-    opacity:0.8;
+    margin-top:12px;
+    font-size: 16px;
+    opacity:0.75;
 }
 
 .main{
     width:100%;
-    max-width:1200px;
+    max-width:1000px;
     margin:auto;
-    padding:30px;
+    padding:40px 20px;
 }
 
 .generator-box{
-    background:#171717;
-    padding:30px;
-    border-radius:25px;
-    box-shadow:0 0 25px rgba(0,0,0,0.6);
+    background:#121614;
+    padding:35px;
+    border-radius:24px;
+    border: 1px solid #1f2924;
+    box-shadow:0 15px 35px rgba(0,0,0,0.7);
 }
 
 .section{
@@ -78,119 +87,205 @@ header p{
 label{
     display:block;
     margin-bottom:10px;
-    font-weight:bold;
+    font-weight:600;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #a0a5a3;
 }
 
 input,
 select{
     width:100%;
-    padding:14px;
-    border:none;
-    border-radius:12px;
-    background:#242424;
+    padding:16px;
+    border: 1px solid #232e29;
+    border-radius:14px;
+    background:#1a211e;
     color:white;
     font-size:16px;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+input:focus,
+select:focus{
+    border-color: #00ff99;
+    box-shadow: 0 0 10px rgba(0, 255, 153, 0.15);
+    background: #1e2723;
 }
 
 .checkbox-group{
     display:flex;
     flex-wrap:wrap;
     gap:20px;
+    background: #19201d;
+    padding: 18px;
+    border-radius: 14px;
+    border: 1px solid #232e29;
 }
 
 .checkbox-group label{
-    font-weight:normal;
+    font-weight:500;
+    text-transform: none;
+    letter-spacing: normal;
+    color: #e0e0e0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    margin-bottom: 0;
 }
 
-button{
+.checkbox-group input[type="checkbox"] {
+    width: auto;
+    accent-color: #00ff99;
+    cursor: pointer;
+}
+
+button.generate-btn {
     width:100%;
-    padding:16px;
+    padding:18px;
     border:none;
-    border-radius:15px;
+    border-radius:16px;
     background:#00ff99;
-    color:black;
-    font-size:18px;
+    color:#050706;
+    font-size:19px;
     font-weight:bold;
     cursor:pointer;
-    transition:0.2s;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 15px rgba(0, 255, 153, 0.2);
 }
 
-button:hover{
-    transform:scale(1.02);
+button.generate-btn:hover{
+    transform:translateY(-2px);
+    box-shadow: 0 6px 25px rgba(0, 255, 153, 0.4);
+    background: #12ff9e;
+}
+
+button.generate-btn:active{
+    transform:translateY(0);
 }
 
 .result{
-    margin-top:30px;
-    background:#101010;
-    padding:25px;
+    margin-top:35px;
+    background:#0a0d0c;
+    padding:30px;
     border-radius:20px;
     text-align:center;
+    border: 1px solid #17211d;
 }
 
 #username{
-    font-size:34px;
+    font-size:38px;
+    font-weight: 700;
     color:#00ff99;
-    margin-bottom:15px;
-    word-break:break-word;
+    margin-bottom:12px;
+    word-break:break-all;
+    letter-spacing: 0.5px;
+}
+
+.rating-badge {
+    display: inline-block;
+    padding: 4px 14px;
+    background: #16221d;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #a0a8a5;
+    border: 1px solid #22352d;
 }
 
 .action-buttons{
     display:flex;
     gap:15px;
-    margin-top:15px;
+    margin-top:25px;
 }
 
 .action-buttons button{
-    background:#303030;
+    background:#1c2521;
     color:white;
+    border: 1px solid #2d3b35;
+    padding: 14px;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    width: 100%;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.action-buttons button:hover{
+    background:#25322c;
+    border-color: #00ff99;
 }
 
 .stats{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
     gap:20px;
-    margin-top:35px;
+    margin-top:40px;
 }
 
 .card{
-    background:#171717;
+    background:#121614;
     padding:25px;
     border-radius:20px;
     text-align:center;
+    border: 1px solid #1f2924;
 }
 
 .card h2{
     color:#00ff99;
-    margin-bottom:10px;
+    font-size: 32px;
+    margin-bottom:6px;
+}
+
+.card p {
+    font-size: 14px;
+    color: #8c9390;
 }
 
 .history{
-    margin-top:40px;
+    margin-top:45px;
+}
+
+.history h2 {
+    font-size: 22px;
+    color: #f0f0f0;
 }
 
 .history-box{
-    background:#171717;
+    background:#121614;
     border-radius:20px;
     padding:20px;
-    max-height:250px;
-    overflow:auto;
+    max-height:280px;
+    overflow-y:auto;
+    border: 1px solid #1f2924;
 }
 
 .history-item{
-    padding:10px;
-    border-bottom:1px solid #333;
+    padding:12px 8px;
+    border-bottom:1px solid #1f2924;
+    font-family: monospace;
+    font-size: 16px;
+}
+
+.history-item:last-child {
+    border-bottom: none;
 }
 
 .tips{
-    margin-top:40px;
-    background:#171717;
-    padding:30px;
+    margin-top:45px;
+    background:#121614;
+    padding:35px;
     border-radius:20px;
+    border: 1px solid #1f2924;
 }
 
 .tips h2{
     color:#00ff99;
-    margin-bottom:15px;
+    margin-bottom:20px;
+    font-size: 22px;
 }
 
 .tips ul{
@@ -198,31 +293,26 @@ button:hover{
 }
 
 .tips li{
-    margin-bottom:10px;
+    margin-bottom:12px;
+    color: #c4cbc7;
 }
 
 footer{
-    margin-top:50px;
-    padding:30px;
+    margin-top:60px;
+    padding:40px;
     text-align:center;
-    background:#0b0b0b;
-    opacity:0.8;
+    background:#080a09;
+    opacity:0.7;
+    font-size: 14px;
+    border-top: 1px solid #121815;
 }
 
 @media(max-width:700px){
-
-    header h1{
-        font-size:30px;
-    }
-
-    #username{
-        font-size:25px;
-    }
-
-    .action-buttons{
-        flex-direction:column;
-    }
-
+    header h1{ font-size:32px; }
+    #username{ font-size:28px; }
+    .action-buttons{ flex-direction:column; gap:10px; }
+    .main { padding: 20px 15px; }
+    .generator-box { padding: 20px; }
 }
 
 </style>
@@ -230,180 +320,99 @@ footer{
 <body>
 
 <header>
-
-<h1>Ultimate Username Generator</h1>
-
-<p>
-Create cool gaming, aesthetic, dark and funny usernames instantly for games and social media.
-</p>
-
+    <h1>Ultimate Username Generator</h1>
+    <p>Create cool gaming, aesthetic, dark and funny usernames instantly for games and social media.</p>
 </header>
 
 <div class="main">
 
-<div class="generator-box">
+    <div class="generator-box">
+        <div class="section">
+            <label>Username Style</label>
+            <select id="style">
+                <option value="gaming">Gaming</option>
+                <option value="aesthetic">Aesthetic</option>
+                <option value="dark">Dark</option>
+                <option value="funny">Funny</option>
+                <option value="anime">Anime</option>
+                <option value="pro">Professional</option>
+            </select>
+        </div>
 
-<div class="section">
+        <div class="section">
+            <label>Custom Word</label>
+            <input type="text" id="customWord" placeholder="Enter your own word (optional)">
+        </div>
 
-<label>Username Style</label>
+        <div class="section">
+            <label>Username Length</label>
+            <select id="length">
+                <option value="short">Short</option>
+                <option value="medium" selected>Medium</option>
+                <option value="long">Long</option>
+            </select>
+        </div>
 
-<select id="style">
+        <div class="section">
+            <label>Extra Options</label>
+            <div class="checkbox-group">
+                <label><input type="checkbox" id="numbers" checked> Add Numbers</label>
+                <label><input type="checkbox" id="underscore"> Add Underscore</label>
+                <label><input type="checkbox" id="caps"> ALL CAPS</label>
+                <label><input type="checkbox" id="symbols"> Add Suffix Symbol</label>
+            </div>
+        </div>
 
-<option value="gaming">Gaming</option>
-<option value="aesthetic">Aesthetic</option>
-<option value="dark">Dark</option>
-<option value="funny">Funny</option>
-<option value="anime">Anime</option>
-<option value="pro">Professional</option>
+        <button class="generate-btn" onclick="generateUsername()">
+            Generate Username
+        </button>
 
-</select>
+        <div class="result">
+            <div id="username">Your username will appear here</div>
+            <div class="rating-badge" id="rating">Username Rating: -</div>
+            
+            <div class="action-buttons">
+                <button onclick="copyUsername()">Copy Username</button>
+                <button onclick="saveFavorite()">Save Favorite</button>
+            </div>
+        </div>
+    </div>
 
-</div>
+    <div class="stats">
+        <div class="card">
+            <h2 id="generatedCount">0</h2>
+            <p>Usernames Generated</p>
+        </div>
+        <div class="card">
+            <h2 id="favoriteCount">0</h2>
+            <p>Favorites Saved</p>
+        </div>
+        <div class="card">
+            <h2>100%</h2>
+            <p>Free Tool</p>
+        </div>
+    </div>
 
-<div class="section">
+    <div class="history">
+        <h2 style="margin-bottom:15px;">Generation History & Favorites</h2>
+        <div class="history-box" id="historyBox"></div>
+    </div>
 
-<label>Custom Word</label>
-
-<input
-type="text"
-id="customWord"
-placeholder="Enter your own word">
-
-</div>
-
-<div class="section">
-
-<label>Username Length</label>
-
-<select id="length">
-
-<option value="short">Short</option>
-<option value="medium">Medium</option>
-<option value="long">Long</option>
-
-</select>
-
-</div>
-
-<div class="section">
-
-<label>Extra Options</label>
-
-<div class="checkbox-group">
-
-<label>
-<input type="checkbox" id="numbers" checked>
- Add Numbers
-</label>
-
-<label>
-<input type="checkbox" id="underscore">
- Add Underscore
-</label>
-
-<label>
-<input type="checkbox" id="caps">
- ALL CAPS
-</label>
-
-<label>
-<input type="checkbox" id="symbols">
- Add Symbols
-</label>
-
-</div>
-
-</div>
-
-<button onclick="generateUsername()">
-Generate Username
-</button>
-
-<div class="result">
-
-<div id="username">
-Your username will appear here
-</div>
-
-<p id="rating">
-Username Rating: -
-</p>
-
-<div class="action-buttons">
-
-<button onclick="copyUsername()">
-Copy Username
-</button>
-
-<button onclick="saveFavorite()">
-Save Favorite
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="stats">
-
-<div class="card">
-<h2 id="generatedCount">0</h2>
-<p>Usernames Generated</p>
-</div>
-
-<div class="card">
-<h2 id="favoriteCount">0</h2>
-<p>Favorites Saved</p>
-</div>
-
-<div class="card">
-<h2>100%</h2>
-<p>Free Tool</p>
-</div>
-
-</div>
-
-<div class="history">
-
-<h2 style="margin-bottom:15px;">
-Generation History & Favorites
-</h2>
-
-<div class="history-box" id="historyBox">
-
-</div>
-
-</div>
-
-<div class="tips">
-
-<h2>Username Tips</h2>
-
-<ul>
-
-<li>Short usernames are easier to remember.</li>
-
-<li>Use unique words to stand out online.</li>
-
-<li>Avoid too many numbers if possible.</li>
-
-<li>Stylish usernames work well for gaming profiles.</li>
-
-<li>Professional usernames are better for business accounts.</li>
-
-</ul>
-
-</div>
+    <div class="tips">
+        <h2>Username Tips</h2>
+        <ul>
+            <li>Short usernames are easier to remember and scan visually.</li>
+            <li>Use unique combinations or sensory words to stand out online.</li>
+            <li>Avoid too many random numbers if you want to look credible.</li>
+            <li>Stylish and edgy prefixes work exceptionally well for gaming profiles.</li>
+            <li>Clean, minimal, and structural formulas are better for professional channels.</li>
+        </ul>
+    </div>
 
 </div>
 
 <footer>
-
-<p>
-Ultimate Username Generator © 2026
-</p>
-
+    <p>Ultimate Username Generator © 2026</p>
 </footer>
 
 <script>
@@ -411,146 +420,110 @@ Ultimate Username Generator © 2026
 let generated = 0;
 let favorites = 0;
 
+// EXTENDED DATA STORAGE FOR MAXIMUM UNIQUE COMBINATIONS
 const styles = {
-
-gaming:{
-first:["Shadow","Blaze","Nova","Ghost","Pixel","Toxic","Storm","Hyper"],
-second:["Hunter","Sniper","Dragon","Knight","Legend","Wolf","Titan"]
-},
-
-aesthetic:{
-first:["Velvet","Cloud","Lunar","Crystal","Dream","Soft","Cherry"],
-second:["Aura","Bloom","Wave","Mist","Sky","Dust"]
-},
-
-dark:{
-first:["Void","Silent","Dark","Blood","Night","Venom","Deadly"],
-second:["Soul","Phantom","Reaper","Demon","Viper","Skull"]
-},
-
-funny:{
-first:["Potato","Chicken","Sleepy","Banana","Tiny","Angry"],
-second:["Goblin","Toaster","Monkey","Penguin","Pickle"]
-},
-
-anime:{
-first:["Kira","Akuma","Sakura","Yami","Riku","Hikari"],
-second:["Senpai","Kun","Chan","Blade","Uchiha","Titan"]
-},
-
-pro:{
-first:["Alpha","Prime","Ultra","Royal","Master","Elite"],
-second:["Tech","Works","Media","Labs","Studios","Group"]
-}
-
+    gaming: {
+        first: ["Shadow", "Blaze", "Nova", "Ghost", "Pixel", "Toxic", "Storm", "Hyper", "Viper", "Apex", "Matrix", "Krypton", "Pulse", "Quantum", "Cyber", "Rogue", "Rebel", "Frost", "Inferno", "Vortex", "Titan", "Omega"],
+        second: ["Hunter", "Sniper", "Dragon", "Knight", "Legend", "Wolf", "Titan", "Fury", "Striker", "Slayer", "Phantom", "Rider", "Glitch", "Beast", "Shade", "Vandal", "Phoenix", "Aero", "Zero", "Nexus", "Blitz"]
+    },
+    aesthetic: {
+        first: ["Velvet", "Cloud", "Lunar", "Crystal", "Dream", "Soft", "Cherry", "Cosmic", "Pastel", "Aero", "Satin", "Lilac", "Flora", "Ocean", "Glow", "Ember", "Silk", "Dewy", "Vanilla", "Solace", "Peach", "Hazel"],
+        second: ["Aura", "Bloom", "Wave", "Mist", "Sky", "Dust", "Petal", "Blush", "Echo", "Hazel", "Breeze", "Chime", "Glimmer", "Iris", "Oasis", "Dawn", "Vibe", "Melody", "Haze", "Dew", "Twilight"]
+    },
+    dark: {
+        first: ["Void", "Silent", "Dark", "Blood", "Night", "Venom", "Deadly", "Grim", "Shadow", "Grave", "Cursed", "Obscure", "Phantom", "Sorrow", "Bleak", "Sinister", "Morbid", "Vile", "Cryptic", "Necro", "Abyss"],
+        second: ["Soul", "Phantom", "Reaper", "Demon", "Viper", "Skull", "Wraith", "Specter", "Bane", "Eclipse", "Gloom", "Shade", "Fiend", "Omen", "Haunt", "Dusk", "Ash", "Scourge", "Crypt", "Fang"]
+    },
+    funny: {
+        first: ["Potato", "Chicken", "Sleepy", "Banana", "Tiny", "Angry", "Chonky", "Funky", "Greasy", "Goofy", "Silly", "Wobbly", "Butter", "Cheesy", "Derpy", "Fluffy", "Salty", "Wonky", "Jumpy", "Crabby"],
+        second: ["Goblin", "Toaster", "Monkey", "Penguin", "Pickle", "Nugget", "Waffle", "Burrito", "Panda", "Muffin", "Donut", "Sloth", "Beaver", "Cactus", "Sausage", "Duck", "Taco", "Badger", "Yeti"]
+    },
+    anime: {
+        first: ["Kira", "Akuma", "Sakura", "Yami", "Riku", "Hikari", "Sora", "Zen", "Ren", "Tatsu", "Ryu", "Kenji", "Goku", "Naruto", "Sasuke", "Luffy", "Zoro", "Itachi", "Kakashi", "Hinata", "Asuka"],
+        second: ["Senpai", "Kun", "Chan", "Blade", "Uchiha", "Titan", "Saiyan", "Hokage", "Shinobi", "Sama", "San", "Sensei", "Ghoul", "Otaku", "Shinigami", "Slayer", "Kage", "Jutsu", "Alchemist"]
+    },
+    pro: {
+        first: ["Alpha", "Prime", "Ultra", "Royal", "Master", "Elite", "Apex", "Zenith", "Vertex", "Omni", "Optima", "Stellar", "Summit", "Matrix", "Vector", "Global", "Nexus", "Core", "Vanguard", "Delta"],
+        second: ["Tech", "Works", "Media", "Labs", "Studios", "Group", "Systems", "Solutions", "Digital", "Consulting", "Network", "Ventures", "Design", "Strategies", "Concepts", "Partners", "Hub"]
+    }
 };
 
-const symbols = ["X","_","-","99","YT","OP"];
+const symbols = ["X", "_", "-", "99", "YT", "OP", "vXv", "iZ", "⚡", "ツ"];
 
 function generateUsername(){
+    let style = document.getElementById("style").value;
+    let customWord = document.getElementById("customWord").value.trim();
+    let length = document.getElementById("length").value;
+    let addNumbers = document.getElementById("numbers").checked;
+    let addUnderscore = document.getElementById("underscore").checked;
+    let caps = document.getElementById("caps").checked;
+    let addSymbols = document.getElementById("symbols").checked;
 
-let style =
-document.getElementById("style").value;
+    let data = styles[style];
+    let first = data.first[Math.floor(Math.random() * data.first.length)];
+    let second = data.second[Math.floor(Math.random() * data.second.length)];
 
-let customWord =
-document.getElementById("customWord").value;
+    let username = "";
 
-let length =
-document.getElementById("length").value;
+    // Process Layout Architecture
+    if(customWord !== ""){
+        username += customWord;
+        if(addUnderscore) username += "_";
+    }
 
-let addNumbers =
-document.getElementById("numbers").checked;
+    username += first;
 
-let addUnderscore =
-document.getElementById("underscore").checked;
+    if(addUnderscore && customWord === ""){
+        username += "_";
+    }
 
-let caps =
-document.getElementById("caps").checked;
+    // Dynamic sizing structural extensions
+    if (length === "short") {
+        username = customWord !== "" ? customWord + first : first;
+    } else if (length === "medium") {
+        username += second;
+    } else if (length === "long") {
+        let thirdOpts = styles.gaming.first; 
+        let third = thirdOpts[Math.floor(Math.random() * thirdOpts.length)];
+        username += second + third;
+    }
 
-let addSymbols =
-document.getElementById("symbols").checked;
+    if(addNumbers){
+        username += Math.floor(Math.random() * 89 + 10); // Clearer double digits
+    }
 
-let data = styles[style];
+    if(addSymbols){
+        username += symbols[Math.floor(Math.random() * symbols.length)];
+    }
 
-let first =
-data.first[Math.floor(Math.random() * data.first.length)];
+    if(caps){
+        username = username.toUpperCase();
+    }
 
-let second =
-data.second[Math.floor(Math.random() * data.second.length)];
+    document.getElementById("username").innerText = username;
 
-let username = "";
+    generated++;
+    document.getElementById("generatedCount").innerText = generated;
 
-if(customWord !== ""){
-username += customWord;
-}
+    // Dynamic Rating Assessment Display
+    let rating = "Good Build";
+    if(username.length > 15) rating = "Ultra Unique Elements";
+    if(username.includes("99") || username.includes("OP")) rating = "Legendary Tier";
+    if(caps) rating = "High Impact Presence";
+    
+    document.getElementById("rating").innerText = "Username Rating: " + rating;
 
-username += first;
-
-if(addUnderscore){
-username += "_";
-}
-
-username += second;
-
-if(length === "long"){
-username += first;
-}
-
-if(addNumbers){
-username += Math.floor(Math.random() * 9999);
-}
-
-if(addSymbols){
-
-username +=
-symbols[Math.floor(Math.random() * symbols.length)];
-
-}
-
-if(caps){
-username = username.toUpperCase();
-}
-
-document.getElementById("username")
-.innerText = username;
-
-generated++;
-
-document.getElementById("generatedCount")
-.innerText = generated;
-
-let rating = "Cool";
-
-if(username.length > 18){
-rating = "Ultra Unique";
-}
-
-if(username.includes("999")){
-rating = "Legendary";
-}
-
-document.getElementById("rating")
-.innerText =
-"Username Rating: " + rating;
-
-addHistory(username);
-
+    addHistory(username);
 }
 
 function copyUsername(){
+    let text = document.getElementById("username").innerText;
+    if(text === "Your username will appear here") return;
 
-let text =
-document.getElementById("username").innerText;
-
-if(text === "Your username will appear here") return;
-
-navigator.clipboard.writeText(text);
-
-alert("Username copied!");
-
+    navigator.clipboard.writeText(text);
+    alert("Username copied to clipboard!");
 }
 
-// FIXED: Created missing addHistory function to show current generation flow
 function addHistory(username) {
     let box = document.getElementById("historyBox");
     let div = document.createElement("div");
@@ -560,47 +533,37 @@ function addHistory(username) {
 }
 
 function saveFavorite(){
+    let username = document.getElementById("username").innerText;
+    if(username === "Your username will appear here") return;
 
-let username =
-document.getElementById("username").innerText;
+    let favoritesList = JSON.parse(localStorage.getItem("favorites")) || [];
 
-if(username === "Your username will appear here"){
-    return;
-}
-
-let favoritesList =
-JSON.parse(localStorage.getItem("favorites")) || [];
-
-// Prevent adding duplicates
-if(!favoritesList.includes(username)){
-    favoritesList.push(username);
-    localStorage.setItem("favorites", JSON.stringify(favoritesList));
-    favorites++;
-    document.getElementById("favoriteCount").innerText = favorites;
-    
-    // Put a visual star indicator in the current history box
-    let box = document.getElementById("historyBox");
-    let div = document.createElement("div");
-    div.className = "history-item";
-    div.style.color = "#00ff99";
-    div.innerText = "⭐ [Saved Favorite] " + username;
-    box.prepend(div);
-    
-    alert("Saved to favorites!");
-} else {
-    alert("Already in favorites!");
-}
-
+    if(!favoritesList.includes(username)){
+        favoritesList.push(username);
+        localStorage.setItem("favorites", JSON.stringify(favoritesList));
+        favorites++;
+        document.getElementById("favoriteCount").innerText = favorites;
+        
+        let box = document.getElementById("historyBox");
+        let div = document.createElement("div");
+        div.className = "history-item";
+        div.style.color = "#00ff99";
+        div.style.fontWeight = "600";
+        div.innerText = "⭐ [Saved Favorite] " + username;
+        box.prepend(div);
+        
+        alert("Saved to favorites successfully!");
+    } else {
+        alert("This combination is already in your favorites list!");
+    }
 }
 
 function displayFavorites(){
-let favoritesList =
-JSON.parse(localStorage.getItem("favorites")) || [];
-favorites = favoritesList.length;
-document.getElementById("favoriteCount").innerText = favorites;
+    let favoritesList = JSON.parse(localStorage.getItem("favorites")) || [];
+    favorites = favoritesList.length;
+    document.getElementById("favoriteCount").innerText = favorites;
 }
 
-// Load initial favorited counter values on page startup
 displayFavorites();
 
 </script>
