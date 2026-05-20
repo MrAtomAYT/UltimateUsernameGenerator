@@ -10,4 +10,4 @@ Free online username generator for gaming, aesthetic, dark, anime, and professio
 - Fast generation
 
 ## Live Website
-https://mratomayt.github.io/UltimateUsernameGenerator/
+[ultimateusernamegenerator.indevs.in](https://ultimateusernamegenerator.indevs.in)
