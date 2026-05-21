@@ -502,6 +502,19 @@ footer {
     .history-grid { grid-template-columns: 1fr; }
     .cookie-consent-banner { flex-direction: column; text-align: center; }
 }
+
+  <style>
+    .article-feed { max-width: 900px; margin: 40px auto; padding: 20px; }
+    .article-card { 
+        display: flex; align-items: center; text-decoration: none; 
+        background: #121614; padding: 15px; border-radius: 12px; 
+        margin-bottom: 20px; border: 1px solid #1f2924; transition: 0.3s;
+    }
+    .article-card:hover { border-color: #00ff99; }
+    .article-card img { width: 120px; height: 80px; object-fit: cover; border-radius: 8px; margin-right: 20px; }
+    .card-content h3 { color: #ffffff; margin: 0; font-size: 18px; }
+    .author { color: #8c9390; font-size: 14px; margin-top: 5px; }
+
 </style>
 </head>
 <body>
@@ -648,7 +661,25 @@ footer {
                 <a href="/unique-names-guide/" class="article-link">5 Tips for Choosing a Unique Username</a>
             </div>
         </div>
-  
+  <section class="article-feed">
+    <h2>Latest Guides</h2>
+    
+    <a href="/psychology-of-usernames/" class="article-card">
+        <img src="path/to/your/image1.jpg" alt="Article Thumbnail">
+        <div class="card-content">
+            <h3>The Psychology of a Perfect Gamertag</h3>
+            <div class="author">By MrAtomAYT</div>
+        </div>
+    </a>
+
+    <a href="/unique-names-guide/" class="article-card">
+        <img src="path/to/your/image2.jpg" alt="Article Thumbnail">
+        <div class="card-content">
+            <h3>5 Tips for Choosing a Unique Username</h3>
+            <div class="author">By MrAtomAYT</div>
+        </div>
+    </a>
+</section>
     <footer id="footer">
         <div class="footer-nav">
             <a href="about">About Us</a>
