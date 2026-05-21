@@ -24,18 +24,16 @@ content="username generator,gaming usernames,roblox usernames,cool usernames,aes
 <meta name="author"
 content="Username Generator">
 
-<link rel="icon"
-href="https://cdn-icons-png.flaticon.com/512/149/149071.png">
+<link rel="icon" href="https://cdn-icons-png.flaticon.com/512/149/149071.png">
 
 <style>
-
-*{
+* {
     margin:0;
     padding:0;
     box-sizing:border-box;
 }
 
-body{
+body {
     font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     background: radial-gradient(circle at center, #141e1b 0%, #0f1110 60%, #070808 100%);
     color:#e0e0e0;
@@ -43,54 +41,49 @@ body{
     line-height: 1.6;
 }
 
-header{
-    padding:40px 20px;
-    text-align:center;
-    background:#080a09;
-    border-bottom:3px solid #00ff99;
-    box-shadow: 0 4px 20px rgba(0, 255, 153, 0.1);
+/* Fullscreen Privacy Gate Styling */
+#gateScreen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    background: #0a0d0c;
 }
 
-header h1{
-    font-size:46px;
-    font-weight: 800;
-    color:#00ff99;
-    letter-spacing: -1px;
-    text-shadow: 0 0 10px rgba(0, 255, 153, 0.3);
-}
-
-header p{
-    margin-top:12px;
-    font-size: 16px;
-    opacity:0.75;
-}
-
-.main{
-    width:100%;
-    max-width:1000px;
-    margin:auto;
-    padding:40px 20px;
-}
-
-/* Privacy Acceptance Container Style */
 .privacy-gate-box {
     background: #161e1a;
-    padding: 25px;
+    padding: 40px;
     border-radius: 20px;
     border: 2px dashed #00ff99;
-    margin-bottom: 30px;
     text-align: center;
-    box-shadow: 0 0 20px rgba(0, 255, 153, 0.1);
+    box-shadow: 0 0 30px rgba(0, 255, 153, 0.15);
+    max-width: 500px;
+    width: 100%;
+}
+
+.privacy-gate-box h2 {
+    color: #00ff99;
+    margin-bottom: 15px;
+    font-size: 28px;
+}
+
+.privacy-gate-box p {
+    color: #a0a5a3;
+    margin-bottom: 25px;
+    font-size: 15px;
 }
 
 .privacy-gate-box label {
-    display: inline-flex;
+    display: flex;
     align-items: center;
+    justify-content: center;
     gap: 10px;
     text-transform: none;
     font-size: 16px;
     color: #ffffff;
     cursor: pointer;
+    margin-bottom: 25px;
 }
 
 .privacy-gate-box input[type="checkbox"] {
@@ -110,35 +103,84 @@ header p{
     cursor: pointer;
     padding: 0;
     display: inline;
-    width: auto !important;
 }
 
 .policy-link-btn:hover {
     color: #12ff9e;
 }
 
-/* Blur/Lock styling for generator fields until accepted */
-.generator-disabled {
-    opacity: 0.25;
-    pointer-events: none;
-    user-select: none;
-    transition: all 0.4s ease;
+#continueBtn {
+    width: 100%;
+    padding: 16px;
+    border: none;
+    border-radius: 12px;
+    background: #00ff99;
+    color: #050706;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
 }
 
-.generator-box{
+#continueBtn:disabled {
+    background: #1f2924;
+    color: #4a5751;
+    cursor: not-allowed;
+}
+
+#continueBtn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 255, 153, 0.3);
+}
+
+/* Main App Layout */
+#mainApp {
+    display: none; /* Hidden until accepted */
+}
+
+header {
+    padding:40px 20px;
+    text-align:center;
+    background:#080a09;
+    border-bottom:3px solid #00ff99;
+    box-shadow: 0 4px 20px rgba(0, 255, 153, 0.1);
+}
+
+header h1 {
+    font-size:46px;
+    font-weight: 800;
+    color:#00ff99;
+    letter-spacing: -1px;
+    text-shadow: 0 0 10px rgba(0, 255, 153, 0.3);
+}
+
+header p {
+    margin-top:12px;
+    font-size: 16px;
+    opacity:0.75;
+}
+
+.main {
+    width:100%;
+    max-width:1000px;
+    margin:auto;
+    padding:20px 20px 40px 20px;
+}
+
+.generator-box {
     background:#121614;
     padding:35px;
     border-radius:24px;
     border: 1px solid #1f2924;
     box-shadow:0 15px 35px rgba(0,0,0,0.7);
-    transition: all 0.4s ease;
+    margin-top: 15px;
 }
 
-.section{
+.section {
     margin-bottom:25px;
 }
 
-label{
+label.input-label {
     display:block;
     margin-bottom:10px;
     font-weight:600;
@@ -148,8 +190,8 @@ label{
     color: #a0a5a3;
 }
 
-input,
-select{
+input[type="text"],
+select {
     width:100%;
     padding:16px;
     border: 1px solid #232e29;
@@ -161,14 +203,14 @@ select{
     outline: none;
 }
 
-input:focus,
-select:focus{
+input[type="text"]:focus,
+select:focus {
     border-color: #00ff99;
     box-shadow: 0 0 10px rgba(0, 255, 153, 0.15);
     background: #1e2723;
 }
 
-.checkbox-group{
+.checkbox-group {
     display:flex;
     flex-wrap:wrap;
     gap:20px;
@@ -178,21 +220,12 @@ select:focus{
     border: 1px solid #232e29;
 }
 
-.checkbox-group label{
+.checkbox-group label {
     font-weight:500;
-    text-transform: none;
-    letter-spacing: normal;
     color: #e0e0e0;
     display: flex;
     align-items: center;
     gap: 8px;
-    cursor: pointer;
-    margin-bottom: 0;
-}
-
-.checkbox-group input[type="checkbox"] {
-    width: auto;
-    accent-color: #00ff99;
     cursor: pointer;
 }
 
@@ -210,24 +243,17 @@ button.generate-btn {
     box-shadow: 0 4px 15px rgba(0, 255, 153, 0.2);
 }
 
-button.generate-btn:disabled {
-    background: #1f2924 !important;
-    color: #4a5751 !important;
-    cursor: not-allowed;
-    box-shadow: none;
-}
-
-button.generate-btn:hover:not(:disabled){
+button.generate-btn:hover {
     transform:translateY(-2px);
     box-shadow: 0 6px 25px rgba(0, 255, 153, 0.4);
     background: #12ff9e;
 }
 
-button.generate-btn:active:not(:disabled){
+button.generate-btn:active {
     transform:translateY(0);
 }
 
-.result{
+.result {
     margin-top:35px;
     background:#0a0d0c;
     padding:30px;
@@ -236,7 +262,7 @@ button.generate-btn:active:not(:disabled){
     border: 1px solid #17211d;
 }
 
-#username{
+#username {
     font-size:38px;
     font-weight: 700;
     color:#00ff99;
@@ -256,13 +282,13 @@ button.generate-btn:active:not(:disabled){
     border: 1px solid #22352d;
 }
 
-.action-buttons{
+.action-buttons {
     display:flex;
     gap:15px;
     margin-top:25px;
 }
 
-.action-buttons button{
+.action-buttons button {
     background:#1c2521;
     color:white;
     border: 1px solid #2d3b35;
@@ -275,19 +301,19 @@ button.generate-btn:active:not(:disabled){
     transition: all 0.2s;
 }
 
-.action-buttons button:hover{
+.action-buttons button:hover {
     background:#25322c;
     border-color: #00ff99;
 }
 
-.stats{
+.stats {
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
     gap:20px;
     margin-top:40px;
 }
 
-.card{
+.card {
     background:#121614;
     padding:25px;
     border-radius:20px;
@@ -295,7 +321,7 @@ button.generate-btn:active:not(:disabled){
     border: 1px solid #1f2924;
 }
 
-.card h2{
+.card h2 {
     color:#00ff99;
     font-size: 32px;
     margin-bottom:6px;
@@ -306,36 +332,46 @@ button.generate-btn:active:not(:disabled){
     color: #8c9390;
 }
 
-.history{
-    margin-top:45px;
+/* History and Favorites Split Grid */
+.history-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+    margin-top: 45px;
 }
 
-.history h2 {
-    font-size: 22px;
+.history-col h2 {
+    font-size: 20px;
     color: #f0f0f0;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #1f2924;
+    padding-bottom: 10px;
 }
 
-.history-box{
+.history-box {
     background:#121614;
     border-radius:20px;
     padding:20px;
-    max-height:280px;
+    height: 300px;
     overflow-y:auto;
     border: 1px solid #1f2924;
 }
 
-.history-item{
+.history-item {
     padding:12px 8px;
     border-bottom:1px solid #1f2924;
     font-family: monospace;
     font-size: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .history-item:last-child {
     border-bottom: none;
 }
 
-.tips{
+.tips {
     margin-top:45px;
     background:#121614;
     padding:35px;
@@ -343,22 +379,53 @@ button.generate-btn:active:not(:disabled){
     border: 1px solid #1f2924;
 }
 
-.tips h2{
+.tips h2 {
     color:#00ff99;
     margin-bottom:20px;
     font-size: 22px;
 }
 
-.tips ul{
+.tips ul {
     padding-left:20px;
 }
 
-.tips li{
+.tips li {
     margin-bottom:12px;
     color: #c4cbc7;
 }
 
-/* Privacy Modal Overlay Windows Setup */
+/* FAQ Section Styling */
+.faq-section {
+    margin-top: 45px;
+}
+
+.faq-section h2 {
+    color: #00ff99;
+    margin-bottom: 25px;
+    font-size: 28px;
+    text-align: center;
+}
+
+.faq-item {
+    background: #121614;
+    border: 1px solid #1f2924;
+    border-radius: 16px;
+    padding: 20px 25px;
+    margin-bottom: 15px;
+}
+
+.faq-item h4 {
+    color: #ffffff;
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.faq-item p {
+    color: #a0a5a3;
+    font-size: 15px;
+}
+
+/* Modal Styling */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -410,10 +477,6 @@ button.generate-btn:active:not(:disabled){
     padding-left: 20px;
 }
 
-.modal-content li {
-    margin-bottom: 6px;
-}
-
 .modal-close-btn {
     background: #00ff99;
     color: #050706;
@@ -431,128 +494,218 @@ button.generate-btn:active:not(:disabled){
     background: #12ff9e;
 }
 
-footer{
+footer {
     margin-top:60px;
-    padding:40px;
+    padding:40px 20px;
     text-align:center;
     background:#080a09;
-    opacity:0.7;
-    font-size: 14px;
     border-top: 1px solid #121815;
 }
 
-@media(max-width:700px){
-    header h1{ font-size:32px; }
-    #username{ font-size:28px; }
-    .action-buttons{ flex-direction:column; gap:10px; }
-    .main { padding: 20px 15px; }
-    .generator-box { padding: 20px; }
+.footer-nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 20px;
 }
 
+.footer-nav a {
+    color: #a0a5a3;
+    text-decoration: none;
+    font-size: 15px;
+    transition: color 0.2s;
+    cursor: pointer;
+}
+
+.footer-nav a:hover {
+    color: #00ff99;
+}
+
+.footer-about {
+    max-width: 600px;
+    margin: 0 auto 20px auto;
+    color: #6b7571;
+    font-size: 14px;
+}
+
+.footer-copyright {
+    color: #4a5751;
+    font-size: 14px;
+}
+
+@media(max-width:700px) {
+    header h1 { font-size:32px; }
+    #username { font-size:28px; }
+    .action-buttons { flex-direction:column; gap:10px; }
+    .main { padding: 20px 15px; }
+    .generator-box { padding: 20px; }
+    .history-grid { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>
 
-<header>
-    <h1>Ultimate Username Generator</h1>
-    <p>Create cool gaming, aesthetic, dark and funny usernames instantly for games and social media.</p>
-</header>
-
-<div class="main">
-
-    <!-- Privacy Checkpoint Gate -->
+<!-- Privacy Checkpoint Gate (Hides Main Site) -->
+<div id="gateScreen">
     <div class="privacy-gate-box">
+        <h2>Welcome to UUG</h2>
+        <p>Before generating your ultimate username, please review our usage policy.</p>
         <label>
-            <input type="checkbox" id="privacyAgreement" onchange="toggleGeneratorAccess()">
-            <span>I accept the global <button class="policy-link-btn" onclick="openPolicyModal(event)">Privacy Policy & Terms</button> to use the generation engine.</span>
+            <input type="checkbox" id="privacyAgreementGate" onchange="toggleContinueBtn()">
+            <span>I accept the <button class="policy-link-btn" onclick="openPolicyModal(event)">Privacy Policy</button></span>
         </label>
+        <button id="continueBtn" disabled onclick="enterSite()">Continue to Generator</button>
     </div>
+</div>
 
-    <!-- Added generator-disabled class initially -->
-    <div class="generator-box generator-disabled" id="generatorInterface">
-        <div class="section">
-            <label>Username Style</label>
-            <select id="style">
-                <option value="gaming">Gaming</option>
-                <option value="aesthetic">Aesthetic</option>
-                <option value="dark">Dark</option>
-                <option value="funny">Funny</option>
-                <option value="anime">Anime</option>
-                <option value="pro">Professional</option>
-            </select>
-        </div>
+<!-- Main Application Content -->
+<div id="mainApp">
+    <header>
+        <h1>Ultimate Username Generator</h1>
+        <p>Create cool gaming, aesthetic, dark and funny usernames instantly for games and social media.</p>
+    </header>
 
-        <div class="section">
-            <label>Custom Word</label>
-            <input type="text" id="customWord" placeholder="Enter your own word (optional)">
-        </div>
+    <div class="main">
 
-        <div class="section">
-            <label>Username Length</label>
-            <select id="length">
-                <option value="short">Short</option>
-                <option value="medium" selected>Medium</option>
-                <option value="long">Long</option>
-            </select>
-        </div>
+        <div class="generator-box" id="generatorInterface">
+            <div class="section">
+                <label class="input-label">Username Style</label>
+                <select id="style">
+                    <option value="gaming">Gaming</option>
+                    <option value="aesthetic">Aesthetic</option>
+                    <option value="dark">Dark</option>
+                    <option value="funny">Funny</option>
+                    <option value="anime">Anime</option>
+                    <option value="pro">Professional</option>
+                </select>
+            </div>
 
-        <div class="section">
-            <label>Extra Options</label>
-            <div class="checkbox-group">
-                <label><input type="checkbox" id="numbers" checked> Add Numbers</label>
-                <label><input type="checkbox" id="underscore"> Add Underscore</label>
-                <label><input type="checkbox" id="caps"> ALL CAPS</label>
-                <label><input type="checkbox" id="symbols"> Add Suffix Symbol</label>
+            <div class="section">
+                <label class="input-label">Custom Word</label>
+                <input type="text" id="customWord" placeholder="Enter your own word (optional)">
+            </div>
+
+            <div class="section">
+                <label class="input-label">Username Length</label>
+                <select id="length">
+                    <option value="short">Short</option>
+                    <option value="medium" selected>Medium</option>
+                    <option value="long">Long</option>
+                </select>
+            </div>
+
+            <div class="section">
+                <label class="input-label">Extra Options</label>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" id="numbers" checked> Add Numbers</label>
+                    <label><input type="checkbox" id="underscore"> Add Underscore</label>
+                    <label><input type="checkbox" id="caps"> ALL CAPS</label>
+                    <label><input type="checkbox" id="symbols"> Add Suffix Symbol</label>
+                </div>
+            </div>
+
+            <button class="generate-btn" id="generateBtn" onclick="generateUsername()">
+                Generate Username
+            </button>
+
+            <div class="result">
+                <div id="username">Your username will appear here</div>
+                <div class="rating-badge" id="rating">Username Rating: -</div>
+                
+                <div class="action-buttons">
+                    <button onclick="copyUsername()">Copy Username</button>
+                    <button onclick="saveFavorite()">Save Favorite</button>
+                </div>
             </div>
         </div>
 
-        <!-- Button is disabled by default until privacy checked -->
-        <button class="generate-btn" id="generateBtn" onclick="generateUsername()" disabled>
-            Generate Username
-        </button>
+        <div class="stats">
+            <div class="card">
+                <h2 id="generatedCount">0</h2>
+                <p>Generated Session</p>
+            </div>
+            <div class="card">
+                <h2 id="favoriteCount">0</h2>
+                <p>Saved Favorites</p>
+            </div>
+            <div class="card">
+                <h2 id="100%">100%</h2>
+                <p>Free Tool</p>
+            </div>
+        </div>
 
-        <div class="result">
-            <div id="username">Your username will appear here</div>
-            <div class="rating-badge" id="rating">Username Rating: -</div>
+        <!-- Split History and Favorites Section -->
+        <div class="history-grid">
+            <div class="history-col">
+                <h2>Recently Generated</h2>
+                <div class="history-box" id="historyBox"></div>
+            </div>
+            <div class="history-col">
+                <h2>Saved Favorites</h2>
+                <div class="history-box" id="favoritesBox">
+                    <!-- Loaded from LocalStorage -->
+                </div>
+            </div>
+        </div>
+
+        <div class="tips">
+            <h2>Username Tips</h2>
+            <ul>
+                <li>Short usernames are easier to remember and scan visually.</li>
+                <li>Use unique combinations or sensory words to stand out online.</li>
+                <li>Avoid too many random numbers if you want to look credible.</li>
+                <li>Stylish and edgy prefixes work exceptionally well for gaming profiles.</li>
+                <li>Clean, minimal, and structural formulas are better for professional channels.</li>
+            </ul>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="faq-section">
+            <h2>Frequently Asked Questions</h2>
             
-            <div class="action-buttons">
-                <button onclick="copyUsername()">Copy Username</button>
-                <button onclick="saveFavorite()">Save Favorite</button>
+            <div class="faq-item">
+                <h4>Is the Ultimate Username Generator free to use?</h4>
+                <p>Yes! Our tool is 100% free with absolutely no hidden costs or generation limits.</p>
+            </div>
+            
+            <div class="faq-item">
+                <h4>Are the generated usernames unique?</h4>
+                <p>We use a vast database of carefully curated words, allowing for millions of unique combinations ensuring you find a distinct name.</p>
+            </div>
+
+            <div class="faq-item">
+                <h4>Where are my favorite usernames stored?</h4>
+                <p>Your favorites are stored locally on your device's browser (Local Storage). We don't save your data on external servers.</p>
+            </div>
+
+            <div class="faq-item">
+                <h4>Can I use these names on Xbox, PlayStation, or Steam?</h4>
+                <p>Absolutely. You can use these generated names across any gaming platform, social media channel, or community forum.</p>
+            </div>
+
+            <div class="faq-item">
+                <h4>What if the name I want is already taken?</h4>
+                <p>If your desired name is taken, try checking the "Add Numbers", "Add Underscore", or "Add Suffix Symbol" options to create an available variation.</p>
             </div>
         </div>
+
     </div>
 
-    <div class="stats">
-        <div class="card">
-            <h2 id="generatedCount">0</h2>
-            <p>Usernames Generated</p>
+    <!-- Footer Area -->
+    <footer id="footer">
+        <div class="footer-nav">
+            <a href="#footer" onclick="alert('Ultimate Username Generator is a dedicated tool built to help gamers, creators, and professionals find the perfect digital identity safely and instantly. We aim to provide the best name generation algorithms on the web.')">About Us</a>
+            <a href="mailto:stayhardhumans@gmail.com">Contact Us</a>
+            <a href="#" onclick="openPolicyModal(event)">Privacy Policy</a>
         </div>
-        <div class="card">
-            <h2 id="favoriteCount">0</h2>
-            <p>Favorites Saved</p>
+        <div class="footer-about">
+            Reach out to our support team at <strong>stayhardhumans@gmail.com</strong> for inquiries, feedback, or feature requests. 
         </div>
-        <div class="card">
-            <h2 id="100%">100%</h2>
-            <p>Free Tool</p>
+        <div class="footer-copyright">
+            <p>Ultimate Username Generator © 2026. All rights reserved.</p>
         </div>
-    </div>
-
-    <div class="history">
-        <h2 style="margin-bottom:15px;">Generation History & Favorites</h2>
-        <div class="history-box" id="historyBox"></div>
-    </div>
-
-    <div class="tips">
-        <h2>Username Tips</h2>
-        <ul>
-            <li>Short usernames are easier to remember and scan visually.</li>
-            <li>Use unique combinations or sensory words to stand out online.</li>
-            <li>Avoid too many random numbers if you want to look credible.</li>
-            <li>Stylish and edgy prefixes work exceptionally well for gaming profiles.</li>
-            <li>Clean, minimal, and structural formulas are better for professional channels.</li>
-        </ul>
-    </div>
-
+    </footer>
 </div>
 
 <!-- Privacy Policy Pop-up Modal Container Structure -->
@@ -580,16 +733,34 @@ footer{
     </div>
 </div>
 
-<footer>
-    <p>Ultimate Username Generator © 2026</p>
-</footer>
-
 <script>
-
 let generated = 0;
 let favorites = 0;
 
-// EXTENDED DATA STORAGE FOR MAXIMUM UNIQUE COMBINATIONS
+// Access Logic for the new Fullscreen Gate
+function toggleContinueBtn() {
+    const isChecked = document.getElementById("privacyAgreementGate").checked;
+    document.getElementById("continueBtn").disabled = !isChecked;
+}
+
+function enterSite() {
+    // Hide Gate, Show Main App
+    document.getElementById("gateScreen").style.display = "none";
+    document.getElementById("mainApp").style.display = "block";
+    loadFavorites(); // Load local storage items
+}
+
+// Modal Toggle Handlers
+function openPolicyModal(event) {
+    event.preventDefault(); 
+    document.getElementById("policyModal").classList.add("active");
+}
+
+function closePolicyModal() {
+    document.getElementById("policyModal").classList.remove("active");
+}
+
+// Data Storage Array
 const styles = {
     gaming: {
         first: ["Shadow", "Blaze", "Nova", "Ghost", "Pixel", "Toxic", "Storm", "Hyper", "Viper", "Apex", "Matrix", "Krypton", "Pulse", "Quantum", "Cyber", "Rogue", "Rebel", "Frost", "Inferno", "Vortex", "Titan", "Omega"],
@@ -618,31 +789,6 @@ const styles = {
 };
 
 const symbols = ["X", "_", "-", "99", "YT", "OP", "vXv", "iZ", "⚡", "ツ"];
-
-// Access Controller Engine Logic
-function toggleGeneratorAccess() {
-    const isChecked = document.getElementById("privacyAgreement").checked;
-    const interfaceBox = document.getElementById("generatorInterface");
-    const generateButton = document.getElementById("generateBtn");
-
-    if (isChecked) {
-        interfaceBox.classList.remove("generator-disabled");
-        generateButton.removeAttribute("disabled");
-    } else {
-        interfaceBox.classList.add("generator-disabled");
-        generateButton.setAttribute("disabled", "true");
-    }
-}
-
-// Modal Toggle Handlers
-function openPolicyModal(event) {
-    event.preventDefault(); // Stop outer form checkbox bubbling triggers
-    document.getElementById("policyModal").classList.add("active");
-}
-
-function closePolicyModal() {
-    document.getElementById("policyModal").classList.remove("active");
-}
 
 function generateUsername(){
     let style = document.getElementById("style").value;
@@ -683,7 +829,7 @@ function generateUsername(){
     }
 
     if(addNumbers){
-        username += Math.floor(Math.random() * 89 + 10); // Clearer double digits
+        username += Math.floor(Math.random() * 89 + 10);
     }
 
     if(addSymbols){
@@ -699,7 +845,6 @@ function generateUsername(){
     generated++;
     document.getElementById("generatedCount").innerText = generated;
 
-    // Dynamic Rating Assessment Display
     let rating = "Good Build";
     if(username.length > 15) rating = "Ultra Unique Elements";
     if(username.includes("99") || username.includes("OP")) rating = "Legendary Tier";
@@ -722,10 +867,11 @@ function addHistory(username) {
     let box = document.getElementById("historyBox");
     let div = document.createElement("div");
     div.className = "history-item";
-    div.innerText = "⚡ " + username;
+    div.innerHTML = `<span>⚡ ${username}</span>`;
     box.prepend(div);
 }
 
+// Modified Save Logic specifically isolating Favorites container
 function saveFavorite(){
     let username = document.getElementById("username").innerText;
     if(username === "Your username will appear here") return;
@@ -735,15 +881,16 @@ function saveFavorite(){
     if(!favoritesList.includes(username)){
         favoritesList.push(username);
         localStorage.setItem("favorites", JSON.stringify(favoritesList));
-        favorites++;
+        
+        favorites = favoritesList.length;
         document.getElementById("favoriteCount").innerText = favorites;
         
-        let box = document.getElementById("historyBox");
+        // Append to designated favorites box only
+        let box = document.getElementById("favoritesBox");
         let div = document.createElement("div");
         div.className = "history-item";
         div.style.color = "#00ff99";
-        div.style.fontWeight = "600";
-        div.innerText = "⭐ [Saved Favorite] " + username;
+        div.innerHTML = `<span>⭐ ${username}</span>`;
         box.prepend(div);
         
         alert("Saved to favorites successfully!");
@@ -752,14 +899,23 @@ function saveFavorite(){
     }
 }
 
-function displayFavorites(){
+// Render Favorites specifically to the new designated box on entering the site
+function loadFavorites(){
     let favoritesList = JSON.parse(localStorage.getItem("favorites")) || [];
     favorites = favoritesList.length;
     document.getElementById("favoriteCount").innerText = favorites;
+    
+    let box = document.getElementById("favoritesBox");
+    box.innerHTML = ""; // Clear loader
+    
+    favoritesList.forEach(user => {
+        let div = document.createElement("div");
+        div.className = "history-item";
+        div.style.color = "#00ff99";
+        div.innerHTML = `<span>⭐ ${user}</span>`;
+        box.prepend(div);
+    });
 }
-
-displayFavorites();
-
 </script>
 
 </body>
