@@ -13,13 +13,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Ultimate Username Generator</title>
+<title>Ultimate Username Generator - Cool Gaming & Aesthetic Handles</title>
 
 <meta name="description"
-content="Generate cool gaming, aesthetic, dark, funny and stylish usernames instantly with this free username generator tool.">
+content="Generate cool gaming, aesthetic, dark, funny and stylish usernames instantly with this free username generator tool. Clean, responsive web design for online creators.">
 
 <meta name="keywords"
-content="username generator,gaming usernames,roblox usernames,cool usernames,aesthetic usernames">
+content="username generator,gaming usernames,roblox usernames,cool usernames,aesthetic usernames,gamertags,twitch handles">
 
 <meta name="author"
 content="Username Generator">
@@ -41,101 +41,9 @@ body {
     line-height: 1.6;
 }
 
-/* Fullscreen Privacy Gate Styling */
-#gateScreen {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding: 20px;
-    background: #0a0d0c;
-}
-
-.privacy-gate-box {
-    background: #161e1a;
-    padding: 40px;
-    border-radius: 20px;
-    border: 2px dashed #00ff99;
-    text-align: center;
-    box-shadow: 0 0 30px rgba(0, 255, 153, 0.15);
-    max-width: 500px;
-    width: 100%;
-}
-
-.privacy-gate-box h2 {
-    color: #00ff99;
-    margin-bottom: 15px;
-    font-size: 28px;
-}
-
-.privacy-gate-box p {
-    color: #a0a5a3;
-    margin-bottom: 25px;
-    font-size: 15px;
-}
-
-.privacy-gate-box label {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    text-transform: none;
-    font-size: 16px;
-    color: #ffffff;
-    cursor: pointer;
-    margin-bottom: 25px;
-}
-
-.privacy-gate-box input[type="checkbox"] {
-    width: 20px;
-    height: 20px;
-    accent-color: #00ff99;
-    cursor: pointer;
-}
-
-.policy-link-btn {
-    background: none;
-    border: none;
-    color: #00ff99;
-    text-decoration: underline;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    padding: 0;
-    display: inline;
-}
-
-.policy-link-btn:hover {
-    color: #12ff9e;
-}
-
-#continueBtn {
-    width: 100%;
-    padding: 16px;
-    border: none;
-    border-radius: 12px;
-    background: #00ff99;
-    color: #050706;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-#continueBtn:disabled {
-    background: #1f2924;
-    color: #4a5751;
-    cursor: not-allowed;
-}
-
-#continueBtn:hover:not(:disabled) {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 255, 153, 0.3);
-}
-
-/* Main App Layout */
+/* Accessible Main App Layout */
 #mainApp {
-    display: none; /* Hidden until accepted */
+    display: block;
 }
 
 header {
@@ -394,7 +302,7 @@ button.generate-btn:active {
     color: #c4cbc7;
 }
 
-/* FAQ Section Styling */
+/* AdSense Optimized FAQ Section */
 .faq-section {
     margin-top: 45px;
 }
@@ -423,6 +331,54 @@ button.generate-btn:active {
 .faq-item p {
     color: #a0a5a3;
     font-size: 15px;
+    line-height: 1.6;
+}
+
+/* Bottom Cookie Banner (Bot Friendly) */
+.cookie-consent-banner {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 600px;
+    background: #161e1a;
+    padding: 20px 30px;
+    border-radius: 16px;
+    border: 2px solid #00ff99;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    z-index: 2000;
+    transition: all 0.3s ease;
+}
+
+.cookie-consent-content p {
+    font-size: 14px;
+    color: #c4cbc7;
+}
+
+.cookie-consent-content a {
+    color: #00ff99;
+    text-decoration: underline;
+}
+
+.cookie-accept-btn {
+    background: #00ff99;
+    color: #050706;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.2s;
+}
+
+.cookie-accept-btn:hover {
+    background: #12ff9e;
 }
 
 /* Modal Styling */
@@ -437,7 +393,7 @@ button.generate-btn:active {
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000;
+    z-index: 3000;
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s ease;
@@ -541,29 +497,23 @@ footer {
     .main { padding: 20px 15px; }
     .generator-box { padding: 20px; }
     .history-grid { grid-template-columns: 1fr; }
+    .cookie-consent-banner { flex-direction: column; text-align: center; }
 }
 </style>
 </head>
 <body>
 
-<!-- Privacy Checkpoint Gate (Hides Main Site) -->
-<div id="gateScreen">
-    <div class="privacy-gate-box">
-        <h2>Welcome to UUG</h2>
-        <p>Before generating your ultimate username, please review our usage policy.</p>
-        <label>
-            <input type="checkbox" id="privacyAgreementGate" onchange="toggleContinueBtn()">
-            <span>I accept the <button class="policy-link-btn" onclick="openPolicyModal(event)">Privacy Policy</button></span>
-        </label>
-        <button id="continueBtn" disabled onclick="enterSite()">Continue to Generator</button>
+<div class="cookie-consent-banner" id="cookieBanner">
+    <div class="cookie-consent-content">
+        <p>We use cookies and local storage to optimize your generation experience. By continuing, you agree to our <a href="privacy-policy" onclick="openPolicyModal(event)">Privacy Policy</a>.</p>
     </div>
+    <button class="cookie-accept-btn" onclick="acceptCookies()">Got It</button>
 </div>
 
-<!-- Main Application Content -->
 <div id="mainApp">
     <header>
         <h1>Ultimate Username Generator</h1>
-        <p>Create cool gaming, aesthetic, dark and funny usernames instantly for games and social media.</p>
+        <p>Create cool gaming, aesthetic, dark and funny usernames instantly for games and social media platforms.</p>
     </header>
 
     <div class="main">
@@ -612,7 +562,7 @@ footer {
             <div class="result">
                 <div id="username">Your username will appear here</div>
                 <div class="rating-badge" id="rating">Username Rating: -</div>
-                
+                 
                 <div class="action-buttons">
                     <button onclick="copyUsername()">Copy Username</button>
                     <button onclick="saveFavorite()">Save Favorite</button>
@@ -635,7 +585,6 @@ footer {
             </div>
         </div>
 
-        <!-- Split History and Favorites Section -->
         <div class="history-grid">
             <div class="history-col">
                 <h2>Recently Generated</h2>
@@ -643,9 +592,7 @@ footer {
             </div>
             <div class="history-col">
                 <h2>Saved Favorites</h2>
-                <div class="history-box" id="favoritesBox">
-                    <!-- Loaded from LocalStorage -->
-                </div>
+                <div class="history-box" id="favoritesBox"></div>
             </div>
         </div>
 
@@ -660,44 +607,42 @@ footer {
             </ul>
         </div>
 
-        <!-- FAQ Section -->
         <div class="faq-section">
             <h2>Frequently Asked Questions</h2>
             
             <div class="faq-item">
-                <h4>Is the Ultimate Username Generator free to use?</h4>
-                <p>Yes! Our tool is 100% free with absolutely no hidden costs or generation limits.</p>
+                <h4>Is the Ultimate Username Generator completely free to use?</h4>
+                <p>Yes, our system tool is 100% free to access with zero hidden transactional layout setups, locked premium handle paywalls, or daily token limit parameters. We managed this platform to maintain long-term utility for digital workspace environments and competitive stream creators globally.</p>
             </div>
             
             <div class="faq-item">
-                <h4>Are the generated usernames unique?</h4>
-                <p>We use a vast database of carefully curated words, allowing for millions of unique combinations ensuring you find a distinct name.</p>
+                <h4>How does the custom database phrase algorithm run?</h4>
+                <p>Our platform references a heavily structured system dictionary partitioned cleanly by contemporary cultural trends (including tactical gaming logs, soft text aesthetics, and professional indicators). When options compile, local client loops blend these string modifiers smoothly in microsecond runtimes.</p>
             </div>
 
             <div class="faq-item">
-                <h4>Where are my favorite usernames stored?</h4>
-                <p>Your favorites are stored locally on your device's browser (Local Storage). We don't save your data on external servers.</p>
+                <h4>Are these custom usernames safe for cross-platform implementation?</h4>
+                <p>Absolutely. Every string format parsed by our interface complies directly with fundamental alpha-numeric character parameters mapped across wide multiplayer registries. You can successfully save variations for Steam, PlayStation Network, Xbox Live, Roblox, Discord, or Instagram handles.</p>
             </div>
 
             <div class="faq-item">
-                <h4>Can I use these names on Xbox, PlayStation, or Steam?</h4>
-                <p>Absolutely. You can use these generated names across any gaming platform, social media channel, or community forum.</p>
+                <h4>Where are my preferred metrics tracking folders managed?</h4>
+                <p>We leverage native Local Browser Storage (LocalStorage) caching directly inside your individual terminal profile application layer. No data configurations, phrase modifications, or target keyword strings are ever transferred, saved, or monitored on external database tracking servers.</p>
             </div>
 
             <div class="faq-item">
-                <h4>What if the name I want is already taken?</h4>
-                <p>If your desired name is taken, try checking the "Add Numbers", "Add Underscore", or "Add Suffix Symbol" options to create an available variation.</p>
+                <h4>What should I process if a specific naming handle is already occupied?</h4>
+                <p>If your favorite variation is already flagged as registered, you can smoothly adjust properties inside our parameters. Activating the "Add Underscore" marker, checking trailing random numerical fields, or incorporating structural suffix symbols creates distinct available combinations easily.</p>
             </div>
         </div>
 
     </div>
 
-    <!-- Footer Area -->
     <footer id="footer">
         <div class="footer-nav">
-            <a href="about.html">About Us</a>
+            <a href="about">About Us</a>
             <a href="mailto:stayhardhumans@gmail.com">Contact Us</a>
-            <a href="privacy-policy.html">Privacy Policy</a>
+            <a href="privacy-policy">Privacy Policy</a>
         </div>
         <div class="footer-about">
             Reach out to our support team at <strong>stayhardhumans@gmail.com</strong> for inquiries, feedback, or feature requests. 
@@ -708,7 +653,6 @@ footer {
     </footer>
 </div>
 
-<!-- Privacy Policy Pop-up Modal Container Structure -->
 <div class="modal-overlay" id="policyModal">
     <div class="modal-content">
         <h3>Privacy Policy & Terms</h3>
@@ -737,17 +681,21 @@ footer {
 let generated = 0;
 let favorites = 0;
 
-// Access Logic for the new Fullscreen Gate
-function toggleContinueBtn() {
-    const isChecked = document.getElementById("privacyAgreementGate").checked;
-    document.getElementById("continueBtn").disabled = !isChecked;
+// On Window Load initialization
+window.onload = function() {
+    loadFavorites();
+    // Check if user previously closed cookie banner
+    if(localStorage.getItem("cookieAcceptGate") === "true") {
+        document.getElementById("cookieBanner").style.display = "none";
+    }
 }
 
-function enterSite() {
-    // Hide Gate, Show Main App
-    document.getElementById("gateScreen").style.display = "none";
-    document.getElementById("mainApp").style.display = "block";
-    loadFavorites(); // Load local storage items
+function acceptCookies() {
+    localStorage.setItem("cookieAcceptGate", "true");
+    document.getElementById("cookieBanner").style.opacity = "0";
+    setTimeout(() => {
+        document.getElementById("cookieBanner").style.display = "none";
+    }, 300);
 }
 
 // Modal Toggle Handlers
@@ -805,7 +753,6 @@ function generateUsername(){
 
     let username = "";
 
-    // Process Layout Architecture
     if(customWord !== ""){
         username += customWord;
         if(addUnderscore) username += "_";
@@ -817,7 +764,6 @@ function generateUsername(){
         username += "_";
     }
 
-    // Dynamic sizing structural extensions
     if (length === "short") {
         username = customWord !== "" ? customWord + first : first;
     } else if (length === "medium") {
@@ -871,7 +817,6 @@ function addHistory(username) {
     box.prepend(div);
 }
 
-// Modified Save Logic specifically isolating Favorites container
 function saveFavorite(){
     let username = document.getElementById("username").innerText;
     if(username === "Your username will appear here") return;
@@ -885,7 +830,6 @@ function saveFavorite(){
         favorites = favoritesList.length;
         document.getElementById("favoriteCount").innerText = favorites;
         
-        // Append to designated favorites box only
         let box = document.getElementById("favoritesBox");
         let div = document.createElement("div");
         div.className = "history-item";
@@ -899,14 +843,13 @@ function saveFavorite(){
     }
 }
 
-// Render Favorites specifically to the new designated box on entering the site
 function loadFavorites(){
     let favoritesList = JSON.parse(localStorage.getItem("favorites")) || [];
     favorites = favoritesList.length;
     document.getElementById("favoriteCount").innerText = favorites;
     
     let box = document.getElementById("favoritesBox");
-    box.innerHTML = ""; // Clear loader
+    box.innerHTML = ""; 
     
     favoritesList.forEach(user => {
         let div = document.createElement("div");
