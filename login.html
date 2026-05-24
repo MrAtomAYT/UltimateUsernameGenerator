@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        body { font-family: sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; }
+        button { padding: 10px 20px; font-size: 16px; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <h2>Sign in to your account</h2>
+    <button id="googleLoginBtn">Login with Google</button>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
+        import { getAuth, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-auth.js";
+
+        // Your Firebase config
+        const firebaseConfig = {
+            apiKey: "AIzaSyA7ChqUvspHot4kXgR2-XCb9jT5EGeKdpo",
+            authDomain: "generetor-2a4bb.firebaseapp.com",
+            projectId: "generetor-2a4bb",
+            storageBucket: "generetor-2a4bb.firebasestorage.app",
+            messagingSenderId: "316415667198",
+            appId: "1:316415667198:web:919c262777b546ed23eeaf",
+            measurementId: "G-N6B0929J25"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth();
+        const provider = new GoogleAuthProvider();
+
+        // Handle the button click
+        document.getElementById('googleLoginBtn').addEventListener('click', () => {
+            signInWithPopup(auth, provider)
+            .then((result) => {
+                alert("Login Successful! Welcome, " + result.user.displayName);
+                window.location.href = "index.html"; // Redirect to homepage
+            })
+            .catch((error) => {
+                alert("Login Failed: " + error.message);
+                console.error(error);
+            });
+        });
+    </script>
+</body>
+</html>
