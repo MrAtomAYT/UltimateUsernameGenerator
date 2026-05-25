@@ -5,13 +5,81 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login | Ultimate Username Generator</title>
     <style>
-        body { background-color: #000000; color: #00FF00; font-family: 'Segoe UI', sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; }
+        body { 
+            background-color: #000000; 
+            color: #00FF00; 
+            font-family: 'Segoe UI', sans-serif; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            height: 100vh; 
+            margin: 0; 
+        }
         #userHeader { display: none; position: absolute; top: 20px; left: 20px; cursor: pointer; }
         #userPhoto { width: 45px; height: 45px; border-radius: 50%; border: 2px solid #00FF00; }
-        h2 { margin-bottom: 25px; }
-        #googleLoginBtn { padding: 12px 30px; font-size: 16px; cursor: pointer; background-color: #00FF00; color: #000000; border: none; border-radius: 25px; font-weight: bold; transition: 0.3s; }
-        #googleLoginBtn:hover { background-color: #00CC00; }
-        #googleLoginBtn:disabled { background-color: #555; cursor: not-allowed; }
+        h2 { margin-bottom: 25px; text-shadow: 0 0 10px #00FF00; }
+        
+        /* Form container styling */
+        .login-container {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            max-width: 320px;
+            gap: 15px;
+            background: #0d0d0d;
+            padding: 30px;
+            border: 1px solid #00FF00;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.2);
+        }
+
+        input {
+            background-color: #000000;
+            border: 1px solid #00FF00;
+            border-radius: 6px;
+            color: #00FF00;
+            padding: 12px;
+            font-size: 14px;
+            outline: none;
+            font-family: inherit;
+        }
+        input::placeholder { color: #005500; }
+        input:focus { box-shadow: 0 0 8px #00FF00; }
+
+        button { 
+            padding: 12px; 
+            font-size: 15px; 
+            cursor: pointer; 
+            font-weight: bold;
+            border-radius: 6px;
+            transition: 0.3s; 
+            font-family: inherit;
+        }
+        
+        .btn-primary {
+            background-color: #00FF00; 
+            color: #000000; 
+            border: none; 
+        }
+        .btn-primary:hover { background-color: #00CC00; box-shadow: 0 0 10px #00FF00; }
+        .btn-primary:disabled { background-color: #333; color: #555; cursor: not-allowed; }
+
+        .divider {
+            text-align: center;
+            margin: 10px 0;
+            color: #00FF00;
+            font-size: 12px;
+            position: relative;
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: #00FF00;
+            border: 1px solid #00FF00;
+        }
+        .btn-secondary:hover { background-color: rgba(0, 255, 0, 0.1); }
+
         .nav-link { color: #00FF00; text-decoration: none; font-weight: bold; position: absolute; top: 20px; right: 20px; }
     </style>
 </head>
@@ -23,12 +91,30 @@
 
 <a href="index.html" class="nav-link">Home</a>
 
-<h2 id="statusTitle">Sign in to your account</h2>
-<button id="googleLoginBtn">Login with Google</button>
+<div class="login-container" id="loginBox">
+    <h2 id="statusTitle" style="text-align: center; margin-top: 0;">Sign In</h2>
+    
+    <input type="email" id="emailInput" placeholder="Email Address" required>
+    <input type="password" id="passwordInput" placeholder="Password" required>
+    
+    <button id="emailLoginBtn" class="btn-primary">Login / Sign Up</button>
+    
+    <div class="divider">OR</div>
+    
+    <button id="googleLoginBtn" class="btn-secondary">Continue with Google</button>
+</div>
 
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
-    import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-auth.js";
+    import { 
+        getAuth, 
+        signInWithPopup, 
+        GoogleAuthProvider, 
+        onAuthStateChanged, 
+        signOut,
+        signInWithEmailAndPassword,
+        createUserWithEmailAndPassword
+    } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-auth.js";
     import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-firestore.js";
 
     const firebaseConfig = {
@@ -46,40 +132,109 @@
     const db = getFirestore();
     const provider = new GoogleAuthProvider();
     
-    const btn = document.getElementById('googleLoginBtn');
+    const googleBtn = document.getElementById('googleLoginBtn');
+    const emailBtn = document.getElementById('emailLoginBtn');
+    const emailInput = document.getElementById('emailInput');
+    const passwordInput = document.getElementById('passwordInput');
+    
+    const loginBox = document.getElementById('loginBox');
     const userHeader = document.getElementById('userHeader');
     const userPhoto = document.getElementById('userPhoto');
     const statusTitle = document.getElementById('statusTitle');
 
+    // Default geometric profile image fallback if user has no photo URL
+    const defaultAvatar = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2300FF00'><path d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5-4-8-4z'/></svg>";
+
+    // 1. Monitor Authentication State Change
     onAuthStateChanged(auth, (user) => {
         if (user) {
             userHeader.style.display = 'block';
-            userPhoto.src = user.photoURL;
-            btn.style.display = 'none';
-            statusTitle.innerText = "Welcome back, " + user.displayName;
+            userPhoto.src = user.photoURL || defaultAvatar;
+            loginBox.style.display = 'none';
+            
+            // Handle display names for users without one (e.g. email signups)
+            const displayName = user.displayName || user.email.split('@')[0];
+            
+            // Create welcoming screen text frame outside container box
+            let welcomeMsg = document.getElementById('welcomeMsg');
+            if(!welcomeMsg){
+                welcomeMsg = document.createElement('h2');
+                welcomeMsg.id = 'welcomeMsg';
+                document.body.appendChild(welcomeMsg);
+            }
+            welcomeMsg.innerText = "Welcome back, " + displayName;
+        } else {
+            userHeader.style.display = 'none';
+            loginBox.style.display = 'flex';
+            const welcomeMsg = document.getElementById('welcomeMsg');
+            if(welcomeMsg) welcomeMsg.remove();
         }
     });
 
-    btn.addEventListener('click', async () => {
-        btn.disabled = true;
-        btn.innerText = "Authenticating...";
+    // Helper function to update Firestore user databases uniform records
+    async function syncUserData(user) {
+        await setDoc(doc(db, "users", user.uid), {
+            email: user.email,
+            displayName: user.displayName || user.email.split('@')[0],
+            lastLogin: new Date().toISOString()
+        }, { merge: true });
+    }
+
+    // 2. Handle Traditional Email/Password Login & Sign Up Flow
+    emailBtn.addEventListener('click', async () => {
+        const email = emailInput.value.trim();
+        const password = passwordInput.value;
+
+        if (!email || !password) {
+            console.warn("Missing credentials fields.");
+            return;
+        }
+
+        emailBtn.disabled = true;
+        emailBtn.innerText = "Processing...";
+
         try {
-            const result = await signInWithPopup(auth, provider);
-            await setDoc(doc(db, "users", result.user.uid), {
-                email: result.user.email,
-                displayName: result.user.displayName,
-                lastLogin: new Date().toISOString()
-            });
+            // Attempt standard sign in procedure
+            const result = await signInWithEmailAndPassword(auth, email, password);
+            await syncUserData(result.user);
             window.location.href = "index.html";
         } catch (error) {
-            console.error("Login Error: ", error.message);
-            btn.disabled = false;
-            btn.innerText = "Login with Google";
+            // Safe Error-Catch Mapping: If account configuration does not exist, build it directly
+            if (error.code === 'auth/user-not-found' || error.code === 'auth/invalid-credential') {
+                try {
+                    const result = await createUserWithEmailAndPassword(auth, email, password);
+                    await syncUserData(result.user);
+                    window.location.href = "index.html";
+                } catch (signUpError) {
+                    console.error("Sign-Up Process Failure: ", signUpError.message);
+                    emailBtn.disabled = false;
+                    emailBtn.innerText = "Login / Sign Up";
+                }
+            } else {
+                console.error("Authentication Process Failure: ", error.message);
+                emailBtn.disabled = false;
+                emailBtn.innerText = "Login / Sign Up";
+            }
         }
     });
 
+    // 3. Handle External Google Sign-In Provider
+    googleBtn.addEventListener('click', async () => {
+        googleBtn.disabled = true;
+        googleBtn.innerText = "Authenticating...";
+        try {
+            const result = await signInWithPopup(auth, provider);
+            await syncUserData(result.user);
+            window.location.href = "index.html";
+        } catch (error) {
+            console.error("Google Login Error: ", error.message);
+            googleBtn.disabled = false;
+            googleBtn.innerText = "Continue with Google";
+        }
+    });
+
+    // 4. Handle Account Profile System Logout Actions
     userHeader.addEventListener('click', () => {
-        // Silent sign out (no popup confirmation)
         signOut(auth).then(() => window.location.reload());
     });
 </script>
