@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
+    <title>Login | Ultimate Username Generator</title>
     <style>
         body { 
             background-color: #000000; 
             color: #00FF00; 
-            font-family: sans-serif; 
+            font-family: 'Segoe UI', sans-serif; 
             display: flex; 
             flex-direction: column; 
             align-items: center; 
@@ -16,6 +16,9 @@
             height: 100vh; 
             margin: 0;
         }
+        #userHeader { display: none; position: absolute; top: 20px; left: 20px; cursor: pointer; }
+        #userPhoto { width: 45px; height: 45px; border-radius: 50%; border: 2px solid #00FF00; }
+        
         h2 { margin-bottom: 25px; }
         
         #googleLoginBtn { 
@@ -37,14 +40,18 @@
 </head>
 <body>
 
+<div id="userHeader">
+    <img id="userPhoto" src="" alt="Profile">
+</div>
+
 <a href="index.html" class="nav-link">Home</a>
 
-<h2>Sign in to your account</h2>
+<h2 id="statusTitle">Sign in to your account</h2>
 <button id="googleLoginBtn">Login with Google</button>
 
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
-    import { getAuth, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-auth.js";
+    import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-auth.js";
     import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-firestore.js";
 
     const firebaseConfig = {
@@ -61,28 +68,45 @@
     const auth = getAuth();
     const db = getFirestore();
     const provider = new GoogleAuthProvider();
+    
     const btn = document.getElementById('googleLoginBtn');
+    const userHeader = document.getElementById('userHeader');
+    const userPhoto = document.getElementById('userPhoto');
+    const statusTitle = document.getElementById('statusTitle');
 
+    // 1. Detect if user is already logged in
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            userHeader.style.display = 'block';
+            userPhoto.src = user.photoURL;
+            btn.style.display = 'none';
+            statusTitle.innerText = "Welcome back, " + user.displayName;
+        }
+    });
+
+    // 2. Handle Login
     btn.addEventListener('click', async () => {
         btn.disabled = true;
-        btn.innerText = "Logging in...";
-
+        btn.innerText = "Authenticating...";
         try {
             const result = await signInWithPopup(auth, provider);
-            const user = result.user;
-
-            // Automatically save user email to Firestore
-            await setDoc(doc(db, "users", user.uid), {
-                email: user.email,
-                displayName: user.displayName,
+            await setDoc(doc(db, "users", result.user.uid), {
+                email: result.user.email,
+                displayName: result.user.displayName,
                 lastLogin: new Date().toISOString()
             });
-
             window.location.href = "index.html";
         } catch (error) {
             alert("Login Failed: " + error.message);
             btn.disabled = false;
             btn.innerText = "Login with Google";
+        }
+    });
+
+    // 3. Handle Logout/Switch Account
+    userHeader.addEventListener('click', () => {
+        if (confirm("Sign out and switch accounts?")) {
+            signOut(auth).then(() => window.location.reload());
         }
     });
 </script>
