@@ -30,6 +30,18 @@ content="Username Generator">
 <link rel="icon" type="image/png" href="favicon.png">
 
 <style>
+  /* Replace your previous button CSS with this */
+.login-button {
+    background-color: #00FF00;      /* Green background */
+    color: #000000;                /* Black text */
+    padding: 10px 25px;            /* Size of the button */
+    text-decoration: none;         /* Removes underline */
+    border-radius: 25px;           /* Smooth edges */
+    font-weight: bold;
+    display: inline-block;
+    border: none;
+    cursor: pointer;
+}
 * {
     margin:0;
     padding:0;
@@ -519,9 +531,9 @@ footer {
 </head>
 <body>
 
-    <nav style="text-align: right; padding: 10px;">
-        <a href="login.html" style="text-decoration: none; font-weight: bold; color: blue;">Login</a>
-    </nav>
+  <nav style="text-align: right; padding: 10px;">
+    <a href="login.html" class="login-button">Login</a>
+</nav>
 
 <div class="cookie-consent-banner" id="cookieBanner">
     <div class="cookie-consent-content">
