@@ -5,49 +5,76 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
     <style>
-        body { font-family: sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; }
-        button { padding: 10px 20px; font-size: 16px; cursor: pointer; }
+        body { 
+            background-color: #000000; 
+            color: #00FF00; 
+            font-family: sans-serif; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            height: 100vh; 
+            margin: 0;
+        }
+        h2 { margin-bottom: 25px; }
+        
+        /* The Styled Button */
+        #googleLoginBtn { 
+            padding: 12px 30px; 
+            font-size: 16px; 
+            cursor: pointer; 
+            background-color: #00FF00; 
+            color: #000000; 
+            border: none; 
+            border-radius: 25px; 
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        #googleLoginBtn:hover { background-color: #00CC00; }
+        
+        /* The Back Link */
+        .nav-link { color: #00FF00; text-decoration: none; font-weight: bold; position: absolute; top: 20px; right: 20px; }
     </style>
 </head>
 <body>
-<nav style="text-align: right; padding: 10px;">
-    <a href="login.html" style="text-decoration: none; font-weight: bold; color: blue;">Login</a>
-</nav>
-    <h2>Sign in to your account</h2>
-    <button id="googleLoginBtn">Login with Google</button>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
-        import { getAuth, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-auth.js";
+<a href="index.html" class="nav-link">Home</a>
 
-        // Your Firebase config
-        const firebaseConfig = {
-            apiKey: "AIzaSyA7ChqUvspHot4kXgR2-XCb9jT5EGeKdpo",
-            authDomain: "generetor-2a4bb.firebaseapp.com",
-            projectId: "generetor-2a4bb",
-            storageBucket: "generetor-2a4bb.firebasestorage.app",
-            messagingSenderId: "316415667198",
-            appId: "1:316415667198:web:919c262777b546ed23eeaf",
-            measurementId: "G-N6B0929J25"
-        };
+<h2>Sign in to your account</h2>
+<button id="googleLoginBtn">Login with Google</button>
 
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth();
-        const provider = new GoogleAuthProvider();
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
+    import { getAuth, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-auth.js";
 
-        // Handle the button click
-        document.getElementById('googleLoginBtn').addEventListener('click', () => {
-            signInWithPopup(auth, provider)
-            .then((result) => {
-                alert("Login Successful! Welcome, " + result.user.displayName);
-                window.location.href = "index.html"; // Redirect to homepage
-            })
-            .catch((error) => {
-                alert("Login Failed: " + error.message);
-                console.error(error);
-            });
+    // Your Firebase config
+    const firebaseConfig = {
+        apiKey: "AIzaSyA7ChqUvspHot4kXgR2-XCb9jT5EGeKdpo",
+        authDomain: "generetor-2a4bb.firebaseapp.com",
+        projectId: "generetor-2a4bb",
+        storageBucket: "generetor-2a4bb.firebasestorage.app",
+        messagingSenderId: "316415667198",
+        appId: "1:316415667198:web:919c262777b546ed23eeaf",
+        measurementId: "G-N6B0929J25"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth();
+    const provider = new GoogleAuthProvider();
+
+    // Handle the button click
+    document.getElementById('googleLoginBtn').addEventListener('click', () => {
+        signInWithPopup(auth, provider)
+        .then((result) => {
+            alert("Login Successful! Welcome, " + result.user.displayName);
+            window.location.href = "index.html"; // Redirect to homepage
+        })
+        .catch((error) => {
+            alert("Login Failed: " + error.message);
+            console.error(error);
         });
-    </script>
+    });
+</script>
 </body>
 </html>
