@@ -5,36 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login | Ultimate Username Generator</title>
     <style>
-        body { 
-            background-color: #000000; 
-            color: #00FF00; 
-            font-family: 'Segoe UI', sans-serif; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center; 
-            height: 100vh; 
-            margin: 0;
-        }
+        body { background-color: #000000; color: #00FF00; font-family: 'Segoe UI', sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; }
         #userHeader { display: none; position: absolute; top: 20px; left: 20px; cursor: pointer; }
         #userPhoto { width: 45px; height: 45px; border-radius: 50%; border: 2px solid #00FF00; }
-        
         h2 { margin-bottom: 25px; }
-        
-        #googleLoginBtn { 
-            padding: 12px 30px; 
-            font-size: 16px; 
-            cursor: pointer; 
-            background-color: #00FF00; 
-            color: #000000; 
-            border: none; 
-            border-radius: 25px; 
-            font-weight: bold;
-            transition: 0.3s;
-        }
+        #googleLoginBtn { padding: 12px 30px; font-size: 16px; cursor: pointer; background-color: #00FF00; color: #000000; border: none; border-radius: 25px; font-weight: bold; transition: 0.3s; }
         #googleLoginBtn:hover { background-color: #00CC00; }
         #googleLoginBtn:disabled { background-color: #555; cursor: not-allowed; }
-        
         .nav-link { color: #00FF00; text-decoration: none; font-weight: bold; position: absolute; top: 20px; right: 20px; }
     </style>
 </head>
@@ -74,7 +51,6 @@
     const userPhoto = document.getElementById('userPhoto');
     const statusTitle = document.getElementById('statusTitle');
 
-    // 1. Detect if user is already logged in
     onAuthStateChanged(auth, (user) => {
         if (user) {
             userHeader.style.display = 'block';
@@ -84,7 +60,6 @@
         }
     });
 
-    // 2. Handle Login
     btn.addEventListener('click', async () => {
         btn.disabled = true;
         btn.innerText = "Authenticating...";
@@ -97,17 +72,15 @@
             });
             window.location.href = "index.html";
         } catch (error) {
-            alert("Login Failed: " + error.message);
+            console.error("Login Error: ", error.message);
             btn.disabled = false;
             btn.innerText = "Login with Google";
         }
     });
 
-    // 3. Handle Logout/Switch Account
     userHeader.addEventListener('click', () => {
-        if (confirm("Sign out and switch accounts?")) {
-            signOut(auth).then(() => window.location.reload());
-        }
+        // Silent sign out (no popup confirmation)
+        signOut(auth).then(() => window.location.reload());
     });
 </script>
 </body>
