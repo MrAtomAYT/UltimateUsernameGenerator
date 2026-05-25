@@ -531,6 +531,10 @@ footer {
 </head>
 <body>
 
+  <div id="userHeader" style="display:none; position:absolute; top:20px; left:20px; cursor:pointer;">
+    <img id="userPhoto" src="" alt="Profile" style="width:45px; height:45px; border-radius:50%; border: 2px solid #00FF00;">
+</div>
+
   <nav style="text-align: right; padding: 10px;">
     <a href="login.html" class="login-button">Login</a>
 </nav>
@@ -918,6 +922,45 @@ function loadFavorites(){
     });
 }
 </script>
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-auth.js";
 
+    const firebaseConfig = {
+        apiKey: "AIzaSyA7ChqUvspHot4kXgR2-XCb9jT5EGeKdpo",
+        authDomain: "generetor-2a4bb.firebaseapp.com",
+        projectId: "generetor-2a4bb",
+        storageBucket: "generetor-2a4bb.firebasestorage.app",
+        messagingSenderId: "316415667198",
+        appId: "1:316415667198:web:919c262777b546ed23eeaf",
+        measurementId: "G-N6B0929J25"
+    };
+
+    initializeApp(firebaseConfig);
+    const auth = getAuth();
+    const userHeader = document.getElementById('userHeader');
+    const userPhoto = document.getElementById('userPhoto');
+    const loginBtn = document.querySelector('.login-button'); // This targets your existing link
+
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            // If logged in, show photo and hide the text "Login" link
+            userHeader.style.display = 'block';
+            userPhoto.src = user.photoURL;
+            if (loginBtn) loginBtn.style.display = 'none'; 
+        } else {
+            // If logged out, show the Login button
+            userHeader.style.display = 'none';
+            if (loginBtn) loginBtn.style.display = 'inline-block';
+        }
+    });
+
+    // Clicking the photo signs the user out and sends them to login
+    userHeader.addEventListener('click', () => {
+        signOut(auth).then(() => {
+            window.location.href = "login.html";
+        });
+    });
+</script>
 </body>
 </html>
