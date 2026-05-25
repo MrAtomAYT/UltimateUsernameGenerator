@@ -18,7 +18,6 @@
         }
         h2 { margin-bottom: 25px; }
         
-        /* The Styled Button */
         #googleLoginBtn { 
             padding: 12px 30px; 
             font-size: 16px; 
@@ -28,11 +27,11 @@
             border: none; 
             border-radius: 25px; 
             font-weight: bold;
-            transition: background-color 0.3s;
+            transition: 0.3s;
         }
         #googleLoginBtn:hover { background-color: #00CC00; }
+        #googleLoginBtn:disabled { background-color: #555; cursor: not-allowed; }
         
-        /* The Back Link */
         .nav-link { color: #00FF00; text-decoration: none; font-weight: bold; position: absolute; top: 20px; right: 20px; }
     </style>
 </head>
@@ -46,8 +45,8 @@
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
     import { getAuth, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-auth.js";
+    import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-firestore.js";
 
-    // Your Firebase config
     const firebaseConfig = {
         apiKey: "AIzaSyA7ChqUvspHot4kXgR2-XCb9jT5EGeKdpo",
         authDomain: "generetor-2a4bb.firebaseapp.com",
@@ -58,22 +57,33 @@
         measurementId: "G-N6B0929J25"
     };
 
-    // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const auth = getAuth();
+    const db = getFirestore();
     const provider = new GoogleAuthProvider();
+    const btn = document.getElementById('googleLoginBtn');
 
-    // Handle the button click
-    document.getElementById('googleLoginBtn').addEventListener('click', () => {
-        signInWithPopup(auth, provider)
-        .then((result) => {
-            alert("Login Successful! Welcome, " + result.user.displayName);
-            window.location.href = "index.html"; // Redirect to homepage
-        })
-        .catch((error) => {
+    btn.addEventListener('click', async () => {
+        btn.disabled = true;
+        btn.innerText = "Logging in...";
+
+        try {
+            const result = await signInWithPopup(auth, provider);
+            const user = result.user;
+
+            // Automatically save user email to Firestore
+            await setDoc(doc(db, "users", user.uid), {
+                email: user.email,
+                displayName: user.displayName,
+                lastLogin: new Date().toISOString()
+            });
+
+            window.location.href = "index.html";
+        } catch (error) {
             alert("Login Failed: " + error.message);
-            console.error(error);
-        });
+            btn.disabled = false;
+            btn.innerText = "Login with Google";
+        }
     });
 </script>
 </body>
