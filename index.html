@@ -526,7 +526,53 @@ footer {
     .article-card img { width: 120px; height: 80px; object-fit: cover; border-radius: 8px; margin-right: 20px; }
     .card-content h3 { color: #ffffff; margin: 0; font-size: 18px; }
     .author { color: #8c9390; font-size: 14px; margin-top: 5px; }
+/* Styling for your favorited items list container */
+.history-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #0d0d0d;
+    border: 1px solid #1f2924;
+    padding: 12px 20px;
+    margin-bottom: 8px;
+    border-radius: 8px;
+    transition: border-color 0.3s ease;
+}
 
+/* Subtle border glow highlighting the row when hovered */
+.history-item:hover {
+    border-color: #00FF00;
+}
+
+/* The Matrix-styled Unfavorite Button (hidden by default) */
+.unfavorite-btn {
+    opacity: 0;
+    visibility: hidden;
+    background-color: transparent;
+    color: #00FF00;
+    border: 1px solid #00FF00;
+    padding: 6px 14px;
+    font-size: 13px;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* Button UI transition state when focused directly */
+.unfavorite-btn:hover {
+    background-color: #00FF00;
+    color: #000000;
+    box-shadow: 0 0 8px #00FF00;
+}
+
+/* Reveal the button exclusively when the user hovers over its parent container */
+.history-item:hover .unfavorite-btn {
+    opacity: 1;
+    visibility: visible;
+}
 </style>
 </head>
 <body>
@@ -914,12 +960,32 @@ function loadFavorites(){
     box.innerHTML = ""; 
     
     favoritesList.forEach(user => {
-        let div = document.createElement("div");
-        div.className = "history-item";
-        div.style.color = "#00ff99";
-        div.innerHTML = `<span>⭐ ${user}</span>`;
-        box.prepend(div);
-    });
+    let div = document.createElement("div");
+    div.className = "history-item";
+
+    // 1. Create text node layout frame for the username
+    let textSpan = document.createElement("span");
+    textSpan.innerHTML = `<span>⭐ ${user}</span>`;
+    div.appendChild(textSpan);
+
+    // 2. Build the Matrix-style Unfavorite button
+    let removeBtn = document.createElement("button");
+    removeBtn.className = "unfavorite-btn";
+    removeBtn.innerText = "Unfavorite";
+
+    // 3. Make the button delete the row when clicked
+    removeBtn.addEventListener('click', () => {
+        // PASTE THIS NEW CODE INSTEAD:
+    div.remove();
+    let updatedList = favoritesList.filter(f => f !== user);
+    localStorage.setItem("favorites", JSON.stringify(updatedList));
+    document.getElementById("favoriteCount").innerText = updatedList.length;
+});
+
+    // 4. Assemble the pieces and add to your list
+    div.appendChild(removeBtn);
+    box.prepend(div);
+});
 }
 </script>
 <script type="module">
