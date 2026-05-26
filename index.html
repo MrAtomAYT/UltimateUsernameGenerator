@@ -975,9 +975,9 @@ function loadFavorites(){
 
     // 3. Make the button delete the row when clicked
     removeBtn.addEventListener('click', () => {
-        // PASTE THIS NEW CODE INSTEAD:
     div.remove();
-    let updatedList = favoritesList.filter(f => f !== user);
+    let currentList = JSON.parse(localStorage.getItem("favorites")) || [];
+    let updatedList = currentList.filter(f => f !== user);
     localStorage.setItem("favorites", JSON.stringify(updatedList));
     document.getElementById("favoriteCount").innerText = updatedList.length;
 });
